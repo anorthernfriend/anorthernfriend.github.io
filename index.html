@@ -214,6 +214,35 @@ nav.primary-nav a.active {
 .hero-centered .lead { margin-left: auto; margin-right: auto; }
 .hero-centered .cta-row { justify-content: center; }
 
+.hero-vista {
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(18, 24, 34, 0.50) 0%, rgba(18, 24, 34, 0.62) 58%, rgba(14, 18, 26, 0.78) 100%),
+    url("assets/hero-evergreen-vista.jpg") center 46% / cover no-repeat;
+  color: #F7F3EC;
+  border-bottom: 1px solid var(--line);
+}
+html[data-theme="starlight"] .hero-vista {
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.56) 0%, rgba(0, 0, 0, 0.68) 62%, rgba(0, 0, 0, 0.90) 100%),
+    url("assets/hero-evergreen-vista.jpg") center 46% / cover no-repeat;
+}
+.hero-vista .eyebrow { color: #E6C3AD; }
+.hero-vista .eyebrow::before { background: #E6C3AD; }
+.hero-vista h1 { color: #F7F3EC; text-shadow: 0 2px 18px rgba(0, 0, 0, 0.35); }
+.hero-vista .lead { color: rgba(247, 243, 236, 0.90); text-shadow: 0 1px 10px rgba(0, 0, 0, 0.30); }
+.hero-vista .btn { background: #F4EFEA; color: #1E242E; border-color: #F4EFEA; }
+.hero-vista .btn.secondary {
+  background: rgba(20, 25, 34, 0.42);
+  color: #F7F3EC;
+  border-color: rgba(247, 243, 236, 0.52);
+  backdrop-filter: blur(6px);
+}
+.hero-vista .btn.secondary:hover {
+  background: rgba(247, 243, 236, 0.18);
+  border-color: #F7F3EC;
+}
+
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -761,7 +790,7 @@ footer.site-footer {
   </header>
 
   <main>
-    <section class="hero-centered">
+    <section class="hero-centered hero-vista">
       <div class="container">
         <div class="eyebrow">Akaliko Designs</div>
         <h1>Engineering for Timelessness.</h1>

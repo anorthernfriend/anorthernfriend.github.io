@@ -61,10 +61,52 @@ body {
 .brand-mark {
   width: 32px;
   height: 32px;
+  border-radius: 6px;
   transition: transform 0.34s var(--ease-calm);
 }
 .brand-group:hover .brand-mark {
   transform: scale(1.05);
+}
+
+/* Hardware Sub-Navigation (Industries & Services nested inside Hardware) */
+.sub-nav-bar {
+  background: color-mix(in srgb, var(--surface) 82%, var(--bg));
+  border-bottom: 1px solid var(--line);
+}
+.sub-nav-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s1);
+  padding: 10px 0;
+}
+.sub-nav-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-warm-deep);
+  font-weight: 500;
+  margin-right: var(--s2);
+  padding-right: var(--s2);
+  border-right: 1px solid var(--line);
+}
+.sub-nav-bar a {
+  font-size: 0.82rem;
+  padding: 5px 13px;
+  border-radius: 999px;
+  color: var(--muted);
+  border: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+.sub-nav-bar a:hover {
+  color: var(--ink);
+  border-color: var(--line);
+}
+.sub-nav-bar a.active {
+  color: var(--ink);
+  background: var(--surface-alt);
+  border-color: var(--accent-warm);
+  font-weight: 500;
 }
 
 /* 2. Visual Hierarchy — Golden Typographic Ladder -------------------------- */

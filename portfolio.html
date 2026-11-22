@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="assets/akaliko-mark-gold.png">
+  <title>Engineering Portfolio — Norvin B. Cuentas | Akaliko Designs</title>
+  <meta name="description" content="Mechanical engineering portfolio spanning 14+ years across clean industrial energy, AI-enabled hardware, robotics, industrial automation, and high-volume consumer electronics.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+/* Akaliko Designs — Unified Stylesheet (Zion & Patagonia + Starlight OLED) */
+:root {
+  --phi: 1.618;
+  --s1: 8px;
+  --s2: 13px;
+  --s3: 21px;
+  --s4: 34px;
+  --s5: 55px;
+  --s6: 89px;
+  --bg: #E2DAD3;
+  --surface: #EADCD3;
+  --surface-alt: #EFE8E1;
+  --fg: #3D312A;
+  --ink: #3E4A69;
+  --muted: rgba(61, 49, 42, 0.76);
+  --line: rgba(62, 74, 105, 0.22);
+  --accent-warm: #DAA58D;
+  --accent-warm-deep: #B5735B;
+  --accent-cool: #4A6E67;
+  --accent-cool-soft: #8BC7BD;
+  --btn-bg: #3D312A;
+  --btn-fg: #F4EFEA;
+  --shadow: 0 10px 30px rgba(61, 49, 42, 0.06);
+  --font-sans: "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "EB Garamond", Georgia, serif;
+}
+
+html[data-theme="starlight"] {
+  --bg: #000000;
+  --surface: #0A0A0A;
+  --surface-alt: #111111;
+  --fg: #D8D8D8;
+  --ink: #F2F2F2;
+  --muted: #9A9A9A;
+  --line: #262626;
+  --accent-warm: #DAA58D;
+  --accent-warm-deep: #E6B5A0;
+  --accent-cool: #8BC7BD;
+  --accent-cool-soft: #8BC7BD;
+  --btn-bg: #F2F2F2;
+  --btn-fg: #000000;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.65);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  line-height: 1.618;
+  transition: background-color 0.35s ease, color 0.35s ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 var(--s3);
+}
+
+header.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--bg) 90%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+
+.header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2);
+  padding: var(--s2) 0;
+}
+
+.brand-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.brand-title {
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.brand-sub {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+nav.primary-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s1);
+}
+
+nav.primary-nav a {
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  border-radius: 999px;
+  color: var(--muted);
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+nav.primary-nav a:hover {
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+nav.primary-nav a.active {
+  color: var(--ink);
+  background: var(--surface);
+  border-color: var(--accent-warm);
+  font-weight: 500;
+}
+
+.nav-divider {
+  width: 1px;
+  height: 18px;
+  background: var(--line);
+  margin: 0 4px;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 13px;
+  font-family: inherit;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent-warm);
+}
+
+.status-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s2);
+  padding: var(--s2) var(--s3);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--accent-warm) 18%, var(--surface));
+  border: 1px solid var(--accent-warm);
+  color: var(--ink);
+  font-size: 0.92rem;
+  margin-bottom: var(--s3);
+}
+
+.status-banner.cool {
+  background: color-mix(in srgb, var(--accent-cool) 15%, var(--surface));
+  border-color: var(--accent-cool);
+}
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent-warm-deep);
+  margin-top: 7px;
+  flex: 0 0 auto;
+}
+
+.status-banner.cool .status-dot {
+  background: var(--accent-cool);
+}
+
+.hero {
+  padding: var(--s5) 0 var(--s4);
+  border-bottom: 1px solid var(--line);
+}
+
+.hero-centered {
+  padding: var(--s6) 0 var(--s5);
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+
+.hero-centered .eyebrow { justify-content: center; }
+.hero-centered h1 { margin-left: auto; margin-right: auto; max-width: 24ch; }
+.hero-centered .lead { margin-left: auto; margin-right: auto; }
+.hero-centered .cta-row { justify-content: center; }
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-cool);
+  margin-bottom: var(--s2);
+  font-weight: 500;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 21px;
+  height: 1px;
+  background: var(--accent-cool);
+}
+
+h1 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.1rem, 4.4vw, 3.25rem);
+  line-height: 1.15;
+  color: var(--ink);
+  margin: 0 0 var(--s3);
+  max-width: 22ch;
+}
+
+.lead {
+  font-size: 1.08rem;
+  color: var(--muted);
+  max-width: 64ch;
+  margin: 0 0 var(--s4);
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  align-items: center;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border: 1px solid var(--btn-bg);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.2s ease;
+}
+
+.btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+.btn.secondary {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+.btn.secondary:hover {
+  border-color: var(--accent-warm);
+  background: var(--surface);
+}
+
+.btn.small {
+  padding: 7px 14px;
+  font-size: 0.8rem;
+}
+
+section.band {
+  padding: var(--s5) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s1);
+  margin-bottom: var(--s4);
+}
+
+.section-kicker {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-warm-deep);
+  font-weight: 500;
+}
+
+h2 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(1.65rem, 3vw, 2.25rem);
+  line-height: 1.2;
+  color: var(--ink);
+  margin: 0;
+}
+
+h3 {
+  font-size: 1.14rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0 0 var(--s1);
+}
+
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--s3); }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--s3); }
+.grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--s3); }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: var(--s4);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--s3);
+}
+
+.card.subtle {
+  background: var(--surface-alt);
+  box-shadow: none;
+}
+
+.card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
+.card-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  padding-top: var(--s2);
+  border-top: 1px solid var(--line);
+  font-size: 0.85rem;
+}
+
+.card-links a {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.card-links a:hover {
+  color: var(--accent-warm-deep);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s1);
+  margin-bottom: var(--s3);
+}
+
+.filter-btn {
+  background: var(--surface);
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 15px;
+  font-family: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn.active, .filter-btn:hover {
+  color: var(--ink);
+  border-color: var(--accent-warm);
+  background: var(--surface-alt);
+  font-weight: 500;
+}
+
+.research-card[hidden] { display: none; }
+
+.research-meta {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.caveat-box {
+  margin-top: var(--s2);
+  padding: var(--s2);
+  border-radius: 10px;
+  background: var(--bg);
+  border-left: 3px solid var(--accent-warm-deep);
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+
+.lab-panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: var(--s4);
+  box-shadow: var(--shadow);
+}
+
+.lab-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--s3);
+}
+
+.strike-bars {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(36px, 1fr));
+  gap: 10px;
+  align-items: end;
+  min-height: 170px;
+  padding: var(--s3);
+  border-radius: 12px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+}
+
+.strike-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.strike-bar {
+  width: 100%;
+  max-width: 34px;
+  border-radius: 8px 8px 3px 3px;
+  background: linear-gradient(180deg, var(--accent-warm-deep), var(--accent-cool));
+  transition: height 0.3s ease;
+  min-height: 6px;
+}
+
+.strike-val { font-size: 0.72rem; font-variant-numeric: tabular-nums; color: var(--ink); }
+.strike-lbl { font-size: 0.68rem; color: var(--muted); }
+
+.gallery-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: var(--s3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+.frame-box {
+  position: relative;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  cursor: pointer;
+}
+
+.frame-portrait { aspect-ratio: 9 / 14; max-height: 360px; }
+.frame-wide { aspect-ratio: 16 / 10; }
+.frame-box img, .frame-box svg { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.82);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--s3);
+  z-index: 100;
+}
+
+.lightbox.open { display: flex; }
+
+.lightbox-inner {
+  background: var(--surface);
+  color: var(--fg);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  max-width: 780px;
+  width: 100%;
+  padding: var(--s3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+.tier-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent-cool) 16%, transparent);
+  color: var(--accent-cool);
+  font-weight: 500;
+  width: fit-content;
+}
+
+.tier-metric { font-family: var(--font-serif); font-size: 1.75rem; color: var(--ink); line-height: 1.2; }
+.tier-timeline { font-size: 0.84rem; color: var(--accent-warm-deep); font-weight: 500; }
+
+ul.clean-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--s1) 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+ul.clean-list li {
+  font-size: 0.9rem;
+  color: var(--muted);
+  padding-left: 16px;
+  position: relative;
+}
+
+ul.clean-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--accent-warm-deep);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--s2);
+}
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field.full { grid-column: 1 / -1; }
+label { font-size: 0.82rem; font-weight: 500; color: var(--ink); }
+
+input, select, textarea {
+  width: 100%;
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 11px 13px;
+  font-family: inherit;
+  font-size: 0.94rem;
+  transition: border-color 0.2s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent-cool);
+}
+
+footer.site-footer {
+  padding: var(--s4) 0 var(--s5);
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--s3);
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+}
+
+.footer-links a:hover { color: var(--ink); }
+
+@media (max-width: 720px) {
+  .header-inner { flex-direction: column; align-items: flex-start; }
+  .nav-divider { display: none; }
+}
+
+
+/* Founder / Principal Bio Strip */
+.founder-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) auto;
+  gap: var(--s4);
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: var(--s4);
+  box-shadow: var(--shadow);
+}
+.founder-role {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--accent-cool);
+  margin-bottom: 4px;
+}
+.founder-affil {
+  font-size: 0.84rem;
+  color: var(--accent-warm-deep);
+  margin-bottom: var(--s2);
+  font-weight: 500;
+}
+.founder-portrait-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s2);
+}
+.founder-portrait {
+  width: 148px;
+  height: 148px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent-warm);
+  background: var(--surface-alt);
+}
+.portrait-placeholder {
+  width: 148px;
+  height: 148px;
+  border-radius: 50%;
+  border: 2px dashed var(--line);
+  background: var(--surface-alt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px;
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+@media (max-width: 720px) {
+  .founder-card { grid-template-columns: 1fr; text-align: center; }
+  .founder-portrait-wrap { justify-self: center; }
+}
+
+
+/* Principal / Founder Bio & External Profile Links */
+.bio-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  margin-top: var(--s3);
+}
+.bio-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 15px;
+  border-radius: 999px;
+  font-size: 0.84rem;
+  font-weight: 500;
+  background: var(--bg);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  transition: border-color 0.2s ease, transform 0.15s ease;
+}
+.bio-link-btn:hover {
+  border-color: var(--accent-warm-deep);
+  transform: translateY(-1px);
+}
+.studio-bio-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.618fr) auto;
+  gap: var(--s4);
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: var(--s4);
+  box-shadow: var(--shadow);
+}
+@media (max-width: 720px) {
+  .studio-bio-panel { grid-template-columns: 1fr; text-align: center; }
+  .bio-links { justify-content: center; }
+}
+
+
+/* Akaliko brand mark in header & wordmark lockup */
+.brand-group { display: inline-flex; flex-direction: row; align-items: center; gap: 11px; text-decoration: none; }
+.brand-mark { width: 30px; height: 30px; object-fit: contain; flex: 0 0 auto; display: block; }
+.brand-text { display: flex; flex-direction: column; }
+.footer-lockup { display: block; width: 148px; height: auto; margin-bottom: 10px; opacity: 0.88; filter: brightness(0.28); }
+html[data-theme="starlight"] .footer-lockup { filter: brightness(1.55); opacity: 0.92; }
+.founder-portrait-circle {
+  width: 188px; height: 216px; object-fit: cover; object-position: center; display: block;
+  background: #FAF6ED;
+  border: 1px solid var(--line); border-radius: 22px;
+  box-shadow: 0 10px 24px rgba(24, 28, 36, 0.14);
+}
+.client-card {
+  display: grid; grid-template-columns: auto 1fr; gap: var(--s4); align-items: center;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+  padding: var(--s4); box-shadow: var(--shadow);
+}
+.client-logo-box {
+  width: 116px; height: 116px; border-radius: 14px; background: #ffffff;
+  border: 1px solid rgba(62, 74, 105, 0.14); padding: 10px;
+  display: flex; align-items: center; justify-content: center; flex: 0 0 auto;
+}
+.client-logo-box img { width: 100%; height: 100%; object-fit: contain; display: block; }
+@media (max-width: 640px) {
+  .client-card { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+}
+.hero-coastal {
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(16, 28, 44, 0.56) 0%, rgba(16, 28, 44, 0.68) 58%, rgba(14, 22, 34, 0.82) 100%),
+    url("assets/banner-coastal-pines.jpg") center 48% / cover no-repeat;
+  color: #F7F3EC;
+  border-bottom: 1px solid var(--line);
+}
+html[data-theme="starlight"] .hero-coastal {
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.72) 62%, rgba(0, 0, 0, 0.90) 100%),
+    url("assets/banner-coastal-pines.jpg") center 48% / cover no-repeat;
+}
+.hero-coastal .eyebrow { color: #E6C3AD; }
+.hero-coastal .eyebrow::before { background: #E6C3AD; }
+.hero-coastal h1 { color: #F7F3EC; text-shadow: 0 2px 18px rgba(0, 0, 0, 0.35); }
+.hero-coastal .lead { color: rgba(247, 243, 236, 0.90); text-shadow: 0 1px 10px rgba(0, 0, 0, 0.30); }
+.hero-coastal .status-banner {
+  background: rgba(16, 24, 36, 0.64);
+  border-color: rgba(218, 165, 141, 0.65);
+  color: #F7F3EC;
+  backdrop-filter: blur(8px);
+}
+.hero-coastal .btn { background: #F4EFEA; color: #1E242E; border-color: #F4EFEA; }
+.hero-coastal .btn.secondary {
+  background: rgba(18, 26, 38, 0.44);
+  color: #F7F3EC;
+  border-color: rgba(247, 243, 236, 0.52);
+  backdrop-filter: blur(6px);
+}
+.hero-coastal .btn.secondary:hover { background: rgba(247, 243, 236, 0.18); border-color: #F7F3EC; }
+
+.cred-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s3);
+}
+.cred-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: var(--s3);
+}
+.cred-card h3 {
+  margin: 4px 0 6px;
+  font-family: var(--font-serif);
+  font-size: 1.32rem;
+  font-weight: 400;
+  color: var(--ink);
+}
+.cred-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.pf-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: var(--s4);
+}
+.pf-filter-btn {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  border-radius: 999px;
+  padding: 7px 15px;
+  font: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+.pf-filter-btn:hover {
+  border-color: var(--accent-warm-deep);
+  color: var(--ink);
+}
+.pf-filter-btn.active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--surface-alt);
+}
+.pf-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+}
+.pf-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(260px, 1fr);
+  gap: var(--s4);
+  align-items: start;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: var(--s4);
+  box-shadow: var(--shadow);
+}
+.pf-card.hidden { display: none; }
+.pf-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  margin-bottom: 8px;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.pf-company {
+  font-weight: 600;
+  color: var(--accent-warm-deep);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.74rem;
+}
+.pf-card h3 {
+  margin: 0 0 10px;
+  font-family: var(--font-serif);
+  font-size: 1.62rem;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--ink);
+}
+.pf-card p {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.65;
+}
+.pf-bullets {
+  margin: 0 0 14px;
+  padding-left: 18px;
+  color: var(--muted);
+  font-size: 0.91rem;
+  line-height: 1.6;
+}
+.pf-bullets li { margin-bottom: 5px; }
+.pf-highlight {
+  margin: 12px 0;
+  padding: 12px 16px;
+  border-left: 3px solid var(--accent-warm-deep);
+  background: color-mix(in srgb, var(--surface-alt) 72%, transparent);
+  border-radius: 0 10px 10px 0;
+  font-size: 0.9rem;
+  color: var(--ink);
+  line-height: 1.58;
+}
+.pf-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 12px;
+}
+.pf-skill {
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  background: var(--surface-alt);
+  border-radius: 999px;
+  padding: 4px 10px;
+}
+.pf-media {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.pf-img-btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  cursor: zoom-in;
+  overflow: hidden;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.pf-img-btn:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-warm-deep);
+}
+.pf-img-btn img {
+  display: block;
+  width: 100%;
+  max-height: 250px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+.pf-img-btn.dark-stage {
+  background: #0B0C0E;
+}
+.pf-img-btn.logo-stage {
+  padding: 28px 24px;
+}
+.pf-img-btn.logo-stage img {
+  max-height: 110px;
+}
+.pf-img-cap {
+  font-size: 0.76rem;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 4px;
+}
+.pf-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.pf-pair .pf-img-btn img {
+  max-height: 165px;
+}
+.pf-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 32px;
+  background: rgba(8, 10, 14, 0.95);
+  backdrop-filter: blur(8px);
+}
+.pf-lightbox.open { display: flex; }
+.pf-lightbox img {
+  max-width: min(92vw, 1240px);
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 8px;
+}
+.pf-lb-cap {
+  color: rgba(246, 242, 235, 0.86);
+  font-size: 0.9rem;
+  text-align: center;
+  max-width: 68ch;
+}
+.pf-lb-close {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  background: rgba(246, 242, 235, 0.12);
+  border: 1px solid rgba(246, 242, 235, 0.34);
+  color: #F6F2EB;
+  border-radius: 999px;
+  padding: 7px 15px;
+  font: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+@media (max-width: 860px) {
+  .cred-grid { grid-template-columns: 1fr; }
+  .pf-card { grid-template-columns: 1fr; }
+  .pf-pair { grid-template-columns: 1fr; }
+}
+  </style>
+  <script>
+(function () {
+  const root = document.documentElement;
+  const saved = localStorage.getItem('akaliko_site_theme');
+  if (saved === 'starlight') root.setAttribute('data-theme', 'starlight');
+  window.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    const syncLabel = () => {
+      const dark = root.getAttribute('data-theme') === 'starlight';
+      btn.textContent = dark ? '☀ Zion & Patagonia' : '✦ Starlight OLED';
+      btn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+    };
+    syncLabel();
+    btn.addEventListener('click', () => {
+      const next = root.getAttribute('data-theme') === 'starlight' ? 'zion' : 'starlight';
+      if (next === 'starlight') root.setAttribute('data-theme', 'starlight');
+      else root.removeAttribute('data-theme');
+      localStorage.setItem('akaliko_site_theme', next);
+      syncLabel();
+    });
+  });
+})();
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-group">
+        <img src="assets/akaliko-mark-gold.png" alt="" class="brand-mark" width="30" height="30">
+        <span class="brand-text">
+          <span class="brand-title">Akaliko Designs</span>
+          <span class="brand-sub">Engineering for Timelessness</span>
+        </span>
+      </a>
+      <nav class="primary-nav" aria-label="Main site navigation">
+        <a href="studio.html">Studio Home</a>
+        <a href="hardware.html">Hardware</a>
+        <a href="about.html" class="active">About</a>
+        <a href="industries.html">Industries</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+        <span class="nav-divider" aria-hidden="true"></span>
+        <a href="apps.html">App Development</a>
+        <button type="button" id="themeToggle" class="theme-toggle">✦ Starlight OLED</button>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero" style="padding-bottom:var(--s4)">
+      <div class="container">
+        <p style="margin:0 0 var(--s3);font-size:0.86rem">
+          <a href="principal.html" style="color:var(--accent-cool);text-decoration:none;font-weight:500">← Back to Practice Lead</a>
+        </p>
+        <div class="eyebrow">Mechanical Engineering · 14+ Years Experience</div>
+        <h1>Engineering Portfolio.</h1>
+        <p class="lead">
+          Track record of transferring physical designs through the full product development lifecycle across clean industrial energy, AI-enabled hardware, industrial automation, robotics, semi-autonomous systems, and high-volume consumer electronics—spanning US and Asia manufacturing.
+        </p>
+        <div class="cta-row">
+          <a href="contact.html" class="btn">Get in Touch →</a>
+          <a href="https://www.linkedin.com/in/norvincuentas" target="_blank" rel="noopener" class="btn secondary">LinkedIn Profile ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" style="padding-top:var(--s4);padding-bottom:var(--s4)">
+      <div class="container">
+        <div class="section-header" style="margin-bottom:var(--s3)">
+          <span class="section-kicker">Education &amp; Credentials</span>
+          <h2>Academic &amp; Quality Foundations</h2>
+        </div>
+        <div class="cred-grid">
+          <article class="cred-card">
+            <span class="tier-badge">Degree · 2005</span>
+            <h3>B.S. in Mechanical Engineering (BSME)</h3>
+            <p>Rutgers University — College of Engineering · Piscataway, NJ</p>
+          </article>
+          <article class="cred-card">
+            <span class="tier-badge">Certification · 2020</span>
+            <h3>TUM Lean Six Sigma Yellow Belt</h3>
+            <p>Technische Universität München, School of Management (Executive Education, July 2020) &amp; Quantitative Tools for Quality and Productivity (edX, May 2020)</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" style="border-bottom:none">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker">Selected Programs &amp; Case Studies</span>
+          <h2>Engineering Work Across Industries</h2>
+        </div>
+
+        <div class="pf-filters" role="tablist" aria-label="Filter projects by industry">
+          <button type="button" class="pf-filter-btn active" data-cat="all">All Projects (12)</button>
+          <button type="button" class="pf-filter-btn" data-cat="energy-ai">Clean Energy &amp; AI</button>
+          <button type="button" class="pf-filter-btn" data-cat="robotics">Robotics &amp; Automation</button>
+          <button type="button" class="pf-filter-btn" data-cat="consumer">Consumer Electronics</button>
+          <button type="button" class="pf-filter-btn" data-cat="instruments">Connectors &amp; Instruments</button>
+        </div>
+
+        <div class="pf-list">
+          <!-- 01: Rondo Energy -->
+          <article class="pf-card" data-cats="energy-ai robotics">
+            <div>
+              <div class="pf-meta">
+                <span class="pf-company">Akaliko Designs · Client: Rondo Energy</span>
+                <span>Principal Mechanical Engineering Consultant</span>
+              </div>
+              <h3>Global Deployability &amp; Thailand Industrial Heat Battery Facility</h3>
+              <p>
+                Provided mechanical engineering consultancy for Rondo Energy—developer of zero-carbon thermal energy storage systems (the Rondo Heat Battery)—focused on making the product more readily deployable globally, including engineering work supporting the facility now operating in Thailand.
+              </p>
+              <div class="pf-highlight">
+                <strong>Decarbonization Milestone (Rondo Energy &amp; SCG):</strong> Southeast Asia’s first industrial heat battery and the world’s first commercial heat battery integrated directly into a cement plant (33 MWh modular platform in Saraburi Province, Thailand), converting intermittent renewable electricity into 24/7 zero-carbon heat and power.<br>
+                <a href="https://www.rondo.com/news-press/southeast-asias-first-industrial-heat-battery-now-operating-in-thailand-built-by-rondo-energy-and-scg" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;color:var(--accent-cool);text-decoration:none;font-weight:500">Read Announcement (Rondo Energy &amp; SCG) ↗</a>
+              </div>
+              <div class="pf-skills">
+                <span class="pf-skill">Clean Industrial Energy</span>
+                <span class="pf-skill">Global Deployability</span>
+                <span class="pf-skill">DFM / DFA</span>
+                <span class="pf-skill">Industrial Hardware</span>
+              </div>
+            </div>
+            <div class="pf-media">
+              <button type="button" class="pf-img-btn logo-stage" data-full="assets/client-rondo.svg" data-cap="Rondo Energy — Industrial Thermal Energy Storage">
+                <img src="assets/client-rondo.svg" alt="Rondo Energy logo">
+              </button>
+              <div class="pf-img-cap">Rondo Energy · Zero-Carbon Industrial Thermal Storage</div>
+            </div>
+          </article>
+
+          <!-- 02: BinIt Inc (now Visia) -->
+          <article class="pf-card" data-cats="energy-ai robotics">
+            <div>
+              <div class="pf-meta">
+                <span class="pf-company">Akaliko Designs · Client: BinIt Inc (now Visia)</span>
+                <span>Principal Mechanical Engineering Consultant</span>
+              </div>
+              <h3>Internal AI-Enabled Hardware R&amp;D Program</h3>
+              <p>
+                Partnered closely with BinIt Inc (now operating as Visia)—builder of AI-powered vision and X-ray material-intelligence hardware for Material Recovery Facilities (MRFs)—across a multi-month internal hardware R&amp;D engagement supporting next-generation material-stream optimization.
+              </p>
+              <div class="pf-highlight" style="font-family:var(--font-serif);font-style:italic;font-size:1.02rem">
+                “We worked closely with Norvin from Akaliko Designs on an internal R&amp;D project that spanned multiple months. Aside from his obvious qualifications and exceptional skillset, Norvin is an enterprising, thoughtful, and creative thinker — something that makes him an asset to any engineering team looking to build hardware-enabled products.”
+                <div style="font-family:var(--font-sans);font-style:normal;font-size:0.8rem;color:var(--muted);margin-top:6px">— Raghav Mecheri | Co-Founder &amp; CEO, BinIt Inc (now Visia)</div>
+              </div>
+              <div class="pf-skills">
+                <span class="pf-skill">AI-Enabled Hardware</span>
+                <span class="pf-skill">Hardware R&amp;D</span>
+                <span class="pf-skill">Mechanical Architecture</span>
+                <span class="pf-skill">Rapid Prototyping</span>
+              </div>
+            </div>
+            <div class="pf-media">
+              <button type="button" class="pf-img-btn logo-stage" data-full="assets/client-binit.jpg" data-cap="BinIt Inc (now Visia) — AI-Powered Material Intelligence Hardware">
+                <img src="assets/client-binit.jpg" alt="BinIt Inc logo">
+              </button>
+              <div class="pf-img-cap">BinIt Inc (now Visia) · Material Intelligence Hardware</div>
+            </div>
+          </article>
+
+          <!-- 03: Vimaan Kevlar Data Node -->
+          <article class="pf-card" data-cats="robotics energy-ai">
+            <div>
+              <div class="pf-meta">
+                <span class="pf-company">Vimaan Robotics, Inc.</span>
+                <span>Senior Mechanical Design Engineer · Feb 2022 – Jan 2023</span>
+              </div>
+              <h3>Kevlar Data Node &amp; Sensor Subsystems</h3>
+              <p>
+                Led the system mechanical architecture, subsystem sensor-module design, program management, assembly, and field deployment of the Kevlar Data Node computer vision system for double-pallet forklift configurations—taking the hardware from prototype into revenue-earning production systems and repeat customer orders.
+              </p>
+              <div class="pf-skills">
+                <span class="pf-skill">SolidWorks CAD</span>
+                <span class="pf-skill">SolidWorks Simulation</span>
+                <span class="pf-skill">Sheet Metal</span>
+                <span class="pf-skill">DFM / DFA / DFR</span>
+                <span class="pf-skill">Computer Vision Hardware</span>
+                <span class="pf-skill">Jira &amp; Confluence</span>
+              </div>
+            </div>
+            <div class="pf-media">
+              <button type="button" class="pf-img-btn" data-full="assets/portfolio/01-vimaan-kevlar.jpg" data-cap="Vimaan Robotics — Kevlar Data Node forklift-mounted computer vision assembly">
+                <img src="assets/portfolio/01-vimaan-kevlar.jpg" alt="Vimaan Robotics Kevlar Data Node mounted on forklift">
+              </button>
+              <div class="pf-img-cap">Kevlar Data Node · Double-Pallet Forklift Configuration</div>
+            </div>
+          </article>
+
+          <!-- 04: Vimaan PickTRACK -->
+          <article class="pf-card" data-cats="robotics energy-ai">
+            <div>
+              <div class="pf-meta">
+                <span class="pf-company">Vimaan Robotics, Inc.</span>
+                <span>Senior Mechanical Design Engineer · Feb 2022 – Jan 2023</span>
+              </div>
+              <h3>PickTRACK — MODEX 2022</h3>
+              <p>
+                Designed and released for fabrication modular computer vision hardware tailored for standing forklifts ahead of MODEX 2022, garnering strong commercial interest and new business opportunities for the startup.
+              </p>
+              <p style="margin-bottom:0">
+                <a href="https://www.materialhandling247.com/product/picktrack" target="_blank" rel="noopener" style="color:var(--accent-cool);text-decoration:none;font-weight:500">Product Reference: Material Handling 24/7 ↗</a>
+              </p>
+              <div class="pf-skills">
+                <span class="pf-skill">Design for Modularity</span>
+                <span class="pf-skill">DFA</span>
+                <span class="pf-skill">SolidWorks CAD</span>
+                <span class="pf-skill">Laser &amp; Waterjet Cutting</span>
+                <span class="pf-skill">Electro-Mechanical Integration</span>
+              </div>
+            </div>
+            <div class="pf-media">
+              <button type="button" class="pf-img-btn" data-full="assets/portfolio/02-vimaan-picktrack.png" data-cap="Vimaan Robotics — PickTRACK standing-forklift computer vision system (MODEX 2022)">
+                <img src="assets/portfolio/02-vimaan-picktrack.png" alt="Vimaan Robotics PickTRACK standing forklift vision system">
+              </button>
+              <div class="pf-img-cap">PickTRACK · Standing Forklift Vision System</div>
+            </div>
+          </article>
+
+          <!-- 05: Vimaan MDH R3 -->
+          <article class="pf-card" data-cats="robotics energy-ai">
+            <div>
+              <div class="pf-meta">
+                <span class="pf-company">Vimaan Robotics, Inc.</span>
+                <span>Senior Mechanical Design Engineer · Feb 2022 – Jan 2023</span>
+              </div>
+              <h3>MDH R3 — Compute &amp; Power Delivery Module</h3>
+              <p>
+                Lead mechanical designer for the redesigned MDH compute and power delivery enclosure—engineering for thermal efficiency, ingress protection, field serviceability, and scalable production.
+              </p>
+              <div class="pf-highlight">
+                <strong>Measured Impact:</strong> Reduced unit cost by <strong>49%</strong>, increased production output by <strong>3×</strong>, improved thermal efficiency and modularity, and raised field reliability by reducing part count and assembly steps.
+              </div>
+              <div class="pf-skills">
+                <span class="pf-skill">Thermal Simulation</span>
+                <span class="pf-skill">Ingress Protection</span>
+                <span class="pf-skill">Tolerance Analysis</span>
+                <span class="pf-skill">CNC &amp; Sheet Metal</span>
+                <span class="pf-skill">DFM / DFA / DFR / DFRel</span>
+              </div>
+            </div>
+            <div class="pf-media">
+              <button type="button" class="pf-img-btn" data-full="assets/portfolio/03-vimaan-mdh.png" data-cap="Vimaan Robotics — MDH R3 Compute &amp; Power Delivery Module front I/O panel">
+                <img src="assets/portfolio/03-vimaan-mdh.png" alt="Vimaan Robotics MDH R3 front I/O enclosure view">
+              </button>
+              <div class="pf-img-cap">MDH R3 · Front I/O &amp; Power Delivery Enclosure</div>
+            </div>
+          </article>
+
+          <!-- 06: SMAC Corporation -->
+          <article class="pf-card" data-cats="robotics instruments">
+            <div>
+              <div class="pf-meta">
+                <span class="pf-company">SMAC Corporation</span>
+                <span>Mechanical Design Engineer · Apr 2021 – Jan 2022</span>
+              </div>
+              <h3>VLC-2-EIP 2-Axis Servo Motor Controller Enclosure</h3>
+              <p>
+                Designed the industrial sheet-metal enclosure for the VLC-2-EIP EtherNet/IP 2-axis servo motor controller/driver in SolidWorks, optimizing for laser cutting, bend efficiency, and manufacturing cost reduction.
+              </p>
+              <p style="margin-bottom:0">
+                <a href="https://www.smac-mca.com/vlc-2-eip-ethernetip-2-axis-servo-motor-controllerdriver-p-300162.html" target="_blank" rel="noopener" style="color:var(--accent-cool);text-decoration:none;font-weight:500">Product Reference: SMAC VLC-2-EIP ↗</a>
+              </p>
+              <div class="pf-skills">
+                <span class="pf-skill">Sheet Metal Design</span>
+                <span class="pf-skill">Laser Cutting</span>
+                <span class="pf-skill">DFM &amp; Cost Reduction</span>
+                <span class="pf-skill">SolidWorks CAD</span>
+              </div>
+            </div>
+            <div class="pf-media">
+              <button type="button" class="pf-img-btn" data-full="assets/portfolio/04-smac-vlc.jpg" data-cap="SMAC Corporation — VLC-2-EIP 2-Axis Servo Motor Controller/Driver">
+                <img src="assets/portfolio/04-smac-vlc.jpg" alt="SMAC VLC-2-EIP industrial controller enclosure">
+              </button>
+              <div class="pf-img-cap">SMAC VLC-2-EIP · Industrial Controller Enclosure</div>
+            </div>
+          </article>
+
+          <!-- 07: Sunway Communication / Microsoft Programs -->
+          <article class="pf-card" data-cats="consumer">
+            <div>
+              <div class="pf-meta">
+                <span class="pf-company">Sunway Communication, Inc.</span>
+                <span>Field Application Engineer of North America · Aug 2017 – Dec 2019</span>
+              </div>
+              <h3>Microsoft Surface &amp; Xbox High-Volume Hardware Programs</h3>
+              <ul class="pf-bullets">
+                <li>Served as primary technical and root-cause bridge between Microsoft Hardware Development and Sunway manufacturing across <strong>6+ Microsoft hardware programs</strong>.</li>
+                <li>Partnered with Microsoft part owners on DFM, cost, reliability, and quality for <strong>60+ components</strong>: MIM, precision metal stamping, ground spring contacts (FEA-driven force/height iteration), CNC, insert-molded plastics, LDS antennas, and board-level shielding.</li>
+                <li>Drove PPAP qualification and corrective actions using FAI/Cpk data from CMM/OMM measurements.</li>
+                <li>Supported <strong>Surface Hub 2</strong>, <strong>Surface Hub 2 Pen</strong> (Sunway’s first complex precision tail assembly), <strong>Surface Slim Pen</strong>, and <strong>Xbox Elite Wireless Controller</strong> (MIM paddles, thumbsticks, and D-pads) into mass production.</li>
+              </ul>
+              <div class="pf-skills">
+                <span class="pf-skill">MIM &amp; Precision Stamping</span>
+                <span class="pf-skill">PPAP / FAI / Cpk</span>
+                <span class="pf-skill">FEA Spring Contacts</span>
+                <span class="pf-skill">Insert Molding</span>
+                <span class="pf-skill">US &amp; Asia Manufacturing</span>
+              </div>
+            </div>
+            <div class="pf-media">
+              <div class="pf-pair">
+                <button type="button" class="pf-img-btn" data-full="assets/portfolio/06-sunway-surfacehub.jpg" data-cap="Microsoft Surface Hub 2 internal stamped chassis &amp; shielding subsystems (reference image)">
+                  <img src="assets/portfolio/06-sunway-surfacehub.jpg" alt="Microsoft Surface Hub 2 internal chassis reference">
+                </button>
+                <button type="button" class="pf-img-btn dark-stage" data-full="assets/portfolio/07-sunway-xbox.jpg" data-cap="Microsoft Xbox Elite Wireless Controller MIM paddles, thumbsticks, and D-pads (reference image)">
+                  <img src="assets/portfolio/07-sunway-xbox.jpg" alt="Xbox Elite Wireless Controller MIM components reference">
+                </button>
+              </div>
+              <div class="pf-img-cap">Surface Hub 2 &amp; Xbox Elite Controller (Reference Images)</div>
+            </div>
+          </article>
+
+          <!-- 08: Vivify Trucks -->
+          <article class="pf-card" data-cats="robotics energy-ai">
+            <div>
+              <div class="pf-meta">
+                <span class="pf-company">Vivify Trucks Inc.</span>
+                <span>Co-Founder &amp; Mechanical Engineer · Jul 2016 – Present</span>
+              </div>
+              <h3>Autonomous Scale Commercial Vehicle Prototype</h3>
+              <ul class="pf-bullets">
+                <li>Integrated image sensor, ultrasonic sensor, battery, wiring, and embedded compute platform onto a scale semi-truck testbed.</li>
+                <li>Designed and 3D-printed custom image-sensor hood and ultrasonic sensor enclosure.</li>
+                <li>Debugged, validated, and optimized artificial neural network, computer vision, and vehicle controls in Python/OpenCV and Arduino IDE—delivering a P1 showcase autonomous vehicle capable of traffic-sign detection, obstacle avoidance, and track navigation.</li>
+              </ul>
+              <div class="pf-skills">
+                <span class="pf-skill">3D Printing</span>
+                <span class="pf-skill">Sensor Integration</span>
+                <span class="pf-skill">OpenCV / Python</span>
+                <span class="pf-skill">Arduino IDE</span>
+                <span class="pf-skill">Autonomous Systems</span>
+              </div>
+            </div>
+            <div class="pf-media">
+              <button type="button" class="pf-img-btn" data-full="assets/portfolio/05-vivify-rc.jpg" data-cap="Vivify Trucks Inc. — Self-driving scale semi-truck P1 technical prototype">
+                <img src="assets/portfolio/05-vivify-rc.jpg" alt="Vivify Trucks autonomous RC semi-truck prototype">
+              </button>
+              <div class="pf-img-cap">Vivify Trucks · P1 Autonomous Scale Prototype</div>
+            </div>
+          </article>
+
+          <!-- 09: Human, Inc. -->
+          <article class="pf-card" data-cats="consumer">
+            <div>
+              <div class="pf-meta">
+                <span class="pf-company">Human, Inc.</span>
+                <span>Mechanical Engineer · Mar – Apr 2017</span>
+              </div>
+              <h3>External Acoustic Speaker &amp; 3D Capacitive Touch Flex</h3>
+              <ul class="pf-bullets">
+                <li>Engineered hands-on proof-of-concept plastic prototypes in SolidWorks for external speaker back/front acoustic volume housings and track geometry with plastic injection molding DFM in mind.</li>
+                <li>Collaborated with industrial design and electrical teams to develop a capacitive touch flex PCB outline conforming accurately to a complex 3D outer surface.</li>
+              </ul>
+              <div class="pf-skills">
+                <span class="pf-skill">SolidWorks CAD</span>
+                <span class="pf-skill">Plastic Injection Molding DFM</span>
+                <span class="pf-skill">Acoustic Enclosures</span>
+                <span class="pf-skill">3D Flex PCB Integration</span>
+              </div>
+            </div>
+            <div class="pf-media">
+              <button type="button" class="pf-img-btn" data-full="assets/portfolio/08-human-speaker.jpg" data-cap="Human, Inc. — Exploded assembly showing external speaker volume housings and capacitive touch flex">
+                <img src="assets/portfolio/08-human-speaker.jpg" alt="Human Inc exploded acoustic assembly render">
+              </button>
+              <div class="pf-img-cap">External Speaker Housings &amp; Capacitive Touch Flex</div>
+            </div>
+          </article>
+
+          <!-- 10: Microsoft Surface -->
+          <article class="pf-card" data-cats="consumer">
+            <div>
+              <div class="pf-meta">
+                <span class="pf-company">Microsoft · Surface Devices Team</span>
+                <span>Mechanical Engineer II, Technical Lead · May – Jun 2016</span>
+              </div>
+              <h3>Surface Connector Subsystems &amp; FPCAs</h3>
+              <ul class="pf-bullets">
+                <li>Technical lead for connector subsystems and flex circuits (Audiojack &amp; FPCA, Cover Port &amp; Battery FPCA, Surface Connect, USB &amp; mDP) using Creo and Windchill.</li>
+                <li>Coordinated DFM reviews, 2D release drawings, and tooling releases with ODM suppliers and presented design-risk reviews to cross-functional leadership.</li>
+              </ul>
+              <div class="pf-highlight">
+                <strong>Key Achievement:</strong> Supported cross-program tooling and component sharing initiatives yielding savings of <strong>at least $500,000</strong>.
+              </div>
+              <div class="pf-skills">
+                <span class="pf-skill">Creo &amp; Windchill</span>
+                <span class="pf-skill">Connectors &amp; FPCAs</span>
+                <span class="pf-skill">ODM Tooling Release</span>
+                <span class="pf-skill">High-Volume Consumer Electronics</span>
+              </div>
+            </div>
+            <div class="pf-media">
+              <button type="button" class="pf-img-btn" data-full="assets/portfolio/09-microsoft-surface.jpg" data-cap="Microsoft Surface connector and FPCA layout (reference image only)">
+                <img src="assets/portfolio/09-microsoft-surface.jpg" alt="Microsoft Surface internal connector subsystems reference">
+              </button>
+              <div class="pf-img-cap">Surface Connector Subsystems &amp; FPCAs (Reference Image)</div>
+            </div>
+          </article>
+
+          <!-- 11: Intel Corporation -->
+          <article class="pf-card" data-cats="consumer instruments">
+            <div>
+              <div class="pf-meta">
+                <span class="pf-company">Intel Corporation · Startup Initiatives Team</span>
+                <span>Mechanical Engineer, Mentor &amp; Consultant · Dec 2015 – Mar 2016</span>
+              </div>
+              <h3>America’s Greatest Makers (Season 1) &amp; Path Digital Clinometer</h3>
+              <ul class="pf-bullets">
+                <li><strong>Startup Mentorship:</strong> Traveled across the US supporting startups building Intel Curie product concepts with CEO-level visibility—mentoring <strong>2 finalists and the Season 1 winner</strong> of <em>America’s Greatest Makers</em>.</li>
+                <li><strong>Path Digital Clinometer:</strong> Designed and built an end-to-end Intel Curie IMU + GPS surveying prototype—custom rapid-prototyped enclosure, C++ Arduino firmware converting IMU readings into pitch/roll angles, NMEA GPS parsing, and field validation.</li>
+              </ul>
+              <div class="pf-skills">
+                <span class="pf-skill">Hardware Mentorship</span>
+                <span class="pf-skill">Intel Curie / Embedded C++</span>
+                <span class="pf-skill">IMU &amp; GPS Integration</span>
+                <span class="pf-skill">Rapid Prototyping</span>
+              </div>
+            </div>
+            <div class="pf-media">
+              <div class="pf-pair">
+                <button type="button" class="pf-img-btn" data-full="assets/portfolio/10-intel-makers.jpg" data-cap="Intel Startup Initiatives Team — America’s Greatest Makers Season 1 (reference image)">
+                  <img src="assets/portfolio/10-intel-makers.jpg" alt="Intel Startup Initiatives team">
+                </button>
+                <button type="button" class="pf-img-btn" data-full="assets/portfolio/11-intel-path.jpg" data-cap="Intel Curie — Path digital clinometer working prototype">
+                  <img src="assets/portfolio/11-intel-path.jpg" alt="Path Intel Curie digital clinometer prototype">
+                </button>
+              </div>
+              <div class="pf-img-cap">Startup Initiatives Team &amp; Path Digital Clinometer Prototype</div>
+            </div>
+          </article>
+
+          <!-- 12: Sullins & Rieker -->
+          <article class="pf-card" data-cats="instruments">
+            <div>
+              <div class="pf-meta">
+                <span class="pf-company">Sullins Connector Solutions &amp; Rieker Inc.</span>
+                <span>Mechanical Engineer · 2013 – 2015</span>
+              </div>
+              <h3>Custom Edgecard Connector &amp; H6 Flex Dual-Axis Inclinometer</h3>
+              <ul class="pf-bullets">
+                <li><strong>Sullins Connector Solutions (2015):</strong> New product development for a custom-pitch edgecard connector with custom mounting ear—SolidWorks CAD/drawings, tolerance analysis, insert-mold &amp; industrial automation tooling, and root-cause resolution of insulator flash.</li>
+                <li><strong>Rieker Inc. — H6 Flex Series (2013):</strong> Full NPD of an accurate, rugged dual-axis inclinometer—Creo metal housing &amp; lid, Creo Simulate FEA, tolerance analysis, PCB keep-out layout, BOM, and production assembly documentation (released as a commercial Rieker product offering).</li>
+              </ul>
+              <p style="margin-bottom:0">
+                <a href="http://www.riekerinc.com/E-Inclinometers/H6_Inclinometer.htm" target="_blank" rel="noopener" style="color:var(--accent-cool);text-decoration:none;font-weight:500">Product Reference: Rieker H6 Flex Series ↗</a>
+              </p>
+              <div class="pf-skills">
+                <span class="pf-skill">Insert Mold Tooling</span>
+                <span class="pf-skill">Creo &amp; Creo Simulate FEA</span>
+                <span class="pf-skill">Root Cause Analysis</span>
+                <span class="pf-skill">Rugged Industrial Enclosures</span>
+              </div>
+            </div>
+            <div class="pf-media">
+              <div class="pf-pair">
+                <button type="button" class="pf-img-btn" data-full="assets/portfolio/12-sullins-edgecard.jpg" data-cap="Sullins Connector Solutions — Custom-pitch edgecard connector prototype sample">
+                  <img src="assets/portfolio/12-sullins-edgecard.jpg" alt="Sullins custom edgecard connector housing">
+                </button>
+                <button type="button" class="pf-img-btn" data-full="assets/portfolio/13-rieker-h6.jpg" data-cap="Rieker Inc. — H6 Flex Series rugged dual-axis inclinometer">
+                  <img src="assets/portfolio/13-rieker-h6.jpg" alt="Rieker H6 Flex Series dual-axis inclinometer">
+                </button>
+              </div>
+              <div class="pf-img-cap">Sullins Edgecard Connector &amp; Rieker H6 Flex Inclinometer</div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="pfLightbox" class="pf-lightbox" role="dialog" aria-modal="true" aria-label="Enlarged project visual">
+    <button type="button" id="pfLbClose" class="pf-lb-close" aria-label="Close">Close ✕</button>
+    <img id="pfLbImg" src="" alt="">
+    <div id="pfLbCap" class="pf-lb-cap"></div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>Akaliko Designs</strong> — Engineering for Timelessness<br>
+        <span>Truthfulness · Reliability · Wellbeing · Integrity</span>
+      </div>
+      <div class="footer-links">
+        <a href="studio.html">Studio Home</a>
+        <a href="hardware.html">Hardware</a>
+        <a href="apps.html">App Development</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+(function () {
+  const cards = Array.from(document.querySelectorAll('.pf-card'));
+  document.querySelectorAll('.pf-filter-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.pf-filter-btn').forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cat = btn.getAttribute('data-cat');
+      cards.forEach((c) => {
+        const cats = (c.getAttribute('data-cats') || '').split(' ');
+        c.classList.toggle('hidden', cat !== 'all' && !cats.includes(cat));
+      });
+    });
+  });
+
+  const lb = document.getElementById('pfLightbox');
+  const lbImg = document.getElementById('pfLbImg');
+  const lbCap = document.getElementById('pfLbCap');
+  const close = () => {
+    lb.classList.remove('open');
+    lbImg.src = '';
+    document.body.style.overflow = '';
+  };
+  document.querySelectorAll('.pf-img-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const img = btn.querySelector('img');
+      lbImg.src = btn.getAttribute('data-full');
+      lbImg.alt = img ? img.alt : '';
+      lbCap.textContent = btn.getAttribute('data-cap') || '';
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  document.getElementById('pfLbClose').addEventListener('click', close);
+  lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
+  window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && lb.classList.contains('open')) close(); });
+})();
+  </script>
+
+</body>
+</html>

@@ -771,6 +771,18 @@ html[data-theme="starlight"] .hero-coastal {
   backdrop-filter: blur(6px);
 }
 .hero-coastal .btn.secondary:hover { background: rgba(247, 243, 236, 0.18); border-color: #F7F3EC; }
+.hero-photo-caption {
+  position: absolute;
+  right: var(--s3);
+  bottom: var(--s2);
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: rgba(247, 243, 236, 0.58);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+}
 
 .client-stack { display: flex; flex-direction: column; gap: var(--s3); }
 .client-quote {
@@ -868,6 +880,7 @@ html[data-theme="starlight"] .hero-coastal {
           Tailoring enclosure design, thermal strategy, materials, and tooling volume to the realities of each industry.
         </p>
       </div>
+      <p class="hero-photo-caption">Olympic Mountains from Vancouver Island, near Sooke</p>
     </section>
 
     <section class="band">

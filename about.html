@@ -771,6 +771,18 @@ html[data-theme="starlight"] .hero-coastal {
   backdrop-filter: blur(6px);
 }
 .hero-coastal .btn.secondary:hover { background: rgba(247, 243, 236, 0.18); border-color: #F7F3EC; }
+.hero-photo-caption {
+  position: absolute;
+  right: var(--s3);
+  bottom: var(--s2);
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: rgba(247, 243, 236, 0.58);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+}
   </style>
   <script>
 (function () {
@@ -834,6 +846,7 @@ html[data-theme="starlight"] .hero-coastal {
           Akaliko Designs brings 14 years of mechanical engineering experience across US and Asia manufacturing—spanning AI-enabled hardware, consumer electronics, industrial automation, and industrial electronics—alongside quiet, offline-first software.
         </p>
       </div>
+      <p class="hero-photo-caption">Olympic Mountains from Vancouver Island, near Sooke</p>
     </section>
 
     <section class="band" style="border-bottom:none">

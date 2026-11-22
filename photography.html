@@ -539,68 +539,50 @@ body {
       </div>
     </section>
 
-    <div class="filter-bar" aria-label="Filter plates by study">
+    <div class="filter-bar" aria-label="Filter plates by study" style="display:none">
       <div class="filter-group" role="tablist">
         <button type="button" class="filter-btn active" data-study="all">All Plates</button>
         <button type="button" class="filter-btn" data-study="light">Light-First</button>
         <button type="button" class="filter-btn" data-study="geometry">Geometric Composition</button>
         <button type="button" class="filter-btn" data-study="tonality">Tonality</button>
       </div>
-      <span id="plateCount" class="plate-count">2 Plates</span>
+      <span id="plateCount" class="plate-count">0 Plates</span>
     </div>
 
-    <section class="exhibition" aria-label="Exhibited photographs">
-      <figure class="plate" data-studies="light geometry tonality">
-        <button type="button" class="mat-frame"
-          data-full="assets/banner-coastal-pines.jpg"
-          data-title="Plate I — Olympic Mountains Across the Strait"
-          data-sub="Olympic Mountains, Washington State — photographed from a park near Sooke, Vancouver Island.">
-          <img src="assets/banner-coastal-pines.jpg" alt="Olympic Mountains in Washington State viewed across the Strait of Juan de Fuca from Vancouver Island near Sooke">
-        </button>
-        <figcaption class="placard">
-          <span class="plate-id">Plate I</span>
-          <h3>Olympic Mountains Across the Strait</h3>
-          <p class="placard-loc">Olympic Mountains, Washington State · Viewed from Vancouver Island, near Sooke</p>
-          <p class="placard-note">
-            Foreground conifers anchor the lower corners while atmospheric light separates sea, horizon, and distant peaks into muted blue-grey tonal bands.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Light-First</span>
-            <span class="tag">Geometric Composition</span>
-            <span class="tag">Tonality</span>
-          </div>
-        </figcaption>
-      </figure>
-
-      <figure class="plate" data-studies="light geometry">
-        <button type="button" class="mat-frame"
-          data-full="assets/hero-evergreen-vista.jpg"
-          data-title="Plate II — Evergreen Overlook"
-          data-sub="Coastal conifers and layered water ridges in clear low-angle morning light.">
-          <img src="assets/hero-evergreen-vista.jpg" alt="Coastal evergreen conifers overlooking calm water and receding mountain ridges in morning light">
-        </button>
-        <figcaption class="placard">
-          <span class="plate-id">Plate II</span>
-          <h3>Evergreen Overlook</h3>
-          <p class="placard-loc">Coastal Ridge · Early Light</p>
-          <p class="placard-note">
-            Warm directional sunlight brushes the upper boughs of the evergreens against a cool, open sky—balancing vertical tree lines with receding horizontal waterways.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Light-First</span>
-            <span class="tag">Geometric Composition</span>
-          </div>
-        </figcaption>
-      </figure>
+    <section class="exhibition" aria-label="Exhibited photographs" style="padding-top:var(--s5)">
+      <div style="border:1px solid var(--line);background:var(--wall);padding:var(--s5) var(--s4);text-align:center">
+        <span class="plate-id" style="margin-bottom:12px">Exhibition Wall · In Curation</span>
+        <h3 style="margin:0 0 12px;font-family:var(--font-serif);font-weight:400;font-size:1.75rem;color:var(--fg)">First Series Forthcoming</h3>
+        <p style="margin:0 auto;max-width:48ch;font-size:0.94rem;color:var(--muted);line-height:1.7">
+          Selected works exploring light-first principles, geometric composition, and tonality are currently being curated for this space.
+        </p>
+      </div>
 
       <!--
-        To add a new photograph to the gallery, duplicate a <figure class="plate"> block above,
-        update data-studies ("light", "geometry", "tonality"), Plate number, image path, and placard text.
-      -->
+        To hang photographs in the gallery:
+        1. Remove style="display:none" from .filter-bar above and remove the "Exhibition Wall · In Curation" block.
+        2. Add one <figure class="plate" data-studies="light geometry tonality"> block per photograph:
 
-      <p class="archive-note">
-        An ongoing visual study—new plates are hung periodically as the archive grows.
-      </p>
+        <figure class="plate" data-studies="light geometry tonality">
+          <button type="button" class="mat-frame"
+            data-full="assets/gallery-01.jpg"
+            data-title="Plate I — Title"
+            data-sub="Location · Notes">
+            <img src="assets/gallery-01.jpg" alt="Description">
+          </button>
+          <figcaption class="placard">
+            <span class="plate-id">Plate I</span>
+            <h3>Title</h3>
+            <p class="placard-loc">Location</p>
+            <p class="placard-note">Curatorial note on light, geometry, and tonality.</p>
+            <div class="tag-row">
+              <span class="tag">Light-First</span>
+              <span class="tag">Geometric Composition</span>
+              <span class="tag">Tonality</span>
+            </div>
+          </figcaption>
+        </figure>
+      -->
     </section>
   </main>
 

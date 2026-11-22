@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akaliko Hardware Development — Engineering for Timelessness</title>
+  <meta name="description" content="Mechanical engineering consultancy for AI-enabled hardware, consumer electronics, and industrial systems. Not currently taking on new projects.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+/* Akaliko Designs — Unified Stylesheet (Zion & Patagonia + Starlight OLED) */
+:root {
+  --phi: 1.618;
+  --s1: 8px;
+  --s2: 13px;
+  --s3: 21px;
+  --s4: 34px;
+  --s5: 55px;
+  --s6: 89px;
+  --bg: #E2DAD3;
+  --surface: #EADCD3;
+  --surface-alt: #EFE8E1;
+  --fg: #3D312A;
+  --ink: #3E4A69;
+  --muted: rgba(61, 49, 42, 0.76);
+  --line: rgba(62, 74, 105, 0.22);
+  --accent-warm: #DAA58D;
+  --accent-warm-deep: #B5735B;
+  --accent-cool: #4A6E67;
+  --accent-cool-soft: #8BC7BD;
+  --btn-bg: #3D312A;
+  --btn-fg: #F4EFEA;
+  --shadow: 0 10px 30px rgba(61, 49, 42, 0.06);
+  --font-sans: "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "EB Garamond", Georgia, serif;
+}
+
+html[data-theme="starlight"] {
+  --bg: #000000;
+  --surface: #0A0A0A;
+  --surface-alt: #111111;
+  --fg: #D8D8D8;
+  --ink: #F2F2F2;
+  --muted: #9A9A9A;
+  --line: #262626;
+  --accent-warm: #DAA58D;
+  --accent-warm-deep: #E6B5A0;
+  --accent-cool: #8BC7BD;
+  --accent-cool-soft: #8BC7BD;
+  --btn-bg: #F2F2F2;
+  --btn-fg: #000000;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.65);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  line-height: 1.618;
+  transition: background-color 0.35s ease, color 0.35s ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 var(--s3);
+}
+
+header.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--bg) 90%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+
+.header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2);
+  padding: var(--s2) 0;
+}
+
+.brand-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.brand-title {
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.brand-sub {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+nav.primary-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s1);
+}
+
+nav.primary-nav a {
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  border-radius: 999px;
+  color: var(--muted);
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+nav.primary-nav a:hover {
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+nav.primary-nav a.active {
+  color: var(--ink);
+  background: var(--surface);
+  border-color: var(--accent-warm);
+  font-weight: 500;
+}
+
+.nav-divider {
+  width: 1px;
+  height: 18px;
+  background: var(--line);
+  margin: 0 4px;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 13px;
+  font-family: inherit;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent-warm);
+}
+
+.status-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s2);
+  padding: var(--s2) var(--s3);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--accent-warm) 18%, var(--surface));
+  border: 1px solid var(--accent-warm);
+  color: var(--ink);
+  font-size: 0.92rem;
+  margin-bottom: var(--s3);
+}
+
+.status-banner.cool {
+  background: color-mix(in srgb, var(--accent-cool) 15%, var(--surface));
+  border-color: var(--accent-cool);
+}
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent-warm-deep);
+  margin-top: 7px;
+  flex: 0 0 auto;
+}
+
+.status-banner.cool .status-dot {
+  background: var(--accent-cool);
+}
+
+.hero {
+  padding: var(--s5) 0 var(--s4);
+  border-bottom: 1px solid var(--line);
+}
+
+.hero-centered {
+  padding: var(--s6) 0 var(--s5);
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+
+.hero-centered .eyebrow { justify-content: center; }
+.hero-centered h1 { margin-left: auto; margin-right: auto; max-width: 24ch; }
+.hero-centered .lead { margin-left: auto; margin-right: auto; }
+.hero-centered .cta-row { justify-content: center; }
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-cool);
+  margin-bottom: var(--s2);
+  font-weight: 500;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 21px;
+  height: 1px;
+  background: var(--accent-cool);
+}
+
+h1 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.1rem, 4.4vw, 3.25rem);
+  line-height: 1.15;
+  color: var(--ink);
+  margin: 0 0 var(--s3);
+  max-width: 22ch;
+}
+
+.lead {
+  font-size: 1.08rem;
+  color: var(--muted);
+  max-width: 64ch;
+  margin: 0 0 var(--s4);
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  align-items: center;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border: 1px solid var(--btn-bg);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.2s ease;
+}
+
+.btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+.btn.secondary {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+.btn.secondary:hover {
+  border-color: var(--accent-warm);
+  background: var(--surface);
+}
+
+.btn.small {
+  padding: 7px 14px;
+  font-size: 0.8rem;
+}
+
+section.band {
+  padding: var(--s5) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s1);
+  margin-bottom: var(--s4);
+}
+
+.section-kicker {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-warm-deep);
+  font-weight: 500;
+}
+
+h2 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(1.65rem, 3vw, 2.25rem);
+  line-height: 1.2;
+  color: var(--ink);
+  margin: 0;
+}
+
+h3 {
+  font-size: 1.14rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0 0 var(--s1);
+}
+
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--s3); }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--s3); }
+.grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--s3); }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: var(--s4);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--s3);
+}
+
+.card.subtle {
+  background: var(--surface-alt);
+  box-shadow: none;
+}
+
+.card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
+.card-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  padding-top: var(--s2);
+  border-top: 1px solid var(--line);
+  font-size: 0.85rem;
+}
+
+.card-links a {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.card-links a:hover {
+  color: var(--accent-warm-deep);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s1);
+  margin-bottom: var(--s3);
+}
+
+.filter-btn {
+  background: var(--surface);
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 15px;
+  font-family: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn.active, .filter-btn:hover {
+  color: var(--ink);
+  border-color: var(--accent-warm);
+  background: var(--surface-alt);
+  font-weight: 500;
+}
+
+.research-card[hidden] { display: none; }
+
+.research-meta {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.caveat-box {
+  margin-top: var(--s2);
+  padding: var(--s2);
+  border-radius: 10px;
+  background: var(--bg);
+  border-left: 3px solid var(--accent-warm-deep);
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+
+.lab-panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: var(--s4);
+  box-shadow: var(--shadow);
+}
+
+.lab-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--s3);
+}
+
+.strike-bars {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(36px, 1fr));
+  gap: 10px;
+  align-items: end;
+  min-height: 170px;
+  padding: var(--s3);
+  border-radius: 12px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+}
+
+.strike-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.strike-bar {
+  width: 100%;
+  max-width: 34px;
+  border-radius: 8px 8px 3px 3px;
+  background: linear-gradient(180deg, var(--accent-warm-deep), var(--accent-cool));
+  transition: height 0.3s ease;
+  min-height: 6px;
+}
+
+.strike-val { font-size: 0.72rem; font-variant-numeric: tabular-nums; color: var(--ink); }
+.strike-lbl { font-size: 0.68rem; color: var(--muted); }
+
+.gallery-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: var(--s3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+.frame-box {
+  position: relative;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  cursor: pointer;
+}
+
+.frame-portrait { aspect-ratio: 9 / 14; max-height: 360px; }
+.frame-wide { aspect-ratio: 16 / 10; }
+.frame-box img, .frame-box svg { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.82);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--s3);
+  z-index: 100;
+}
+
+.lightbox.open { display: flex; }
+
+.lightbox-inner {
+  background: var(--surface);
+  color: var(--fg);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  max-width: 780px;
+  width: 100%;
+  padding: var(--s3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+.tier-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent-cool) 16%, transparent);
+  color: var(--accent-cool);
+  font-weight: 500;
+  width: fit-content;
+}
+
+.tier-metric { font-family: var(--font-serif); font-size: 1.75rem; color: var(--ink); line-height: 1.2; }
+.tier-timeline { font-size: 0.84rem; color: var(--accent-warm-deep); font-weight: 500; }
+
+ul.clean-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--s1) 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+ul.clean-list li {
+  font-size: 0.9rem;
+  color: var(--muted);
+  padding-left: 16px;
+  position: relative;
+}
+
+ul.clean-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--accent-warm-deep);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--s2);
+}
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field.full { grid-column: 1 / -1; }
+label { font-size: 0.82rem; font-weight: 500; color: var(--ink); }
+
+input, select, textarea {
+  width: 100%;
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 11px 13px;
+  font-family: inherit;
+  font-size: 0.94rem;
+  transition: border-color 0.2s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent-cool);
+}
+
+footer.site-footer {
+  padding: var(--s4) 0 var(--s5);
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--s3);
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+}
+
+.footer-links a:hover { color: var(--ink); }
+
+@media (max-width: 720px) {
+  .header-inner { flex-direction: column; align-items: flex-start; }
+  .nav-divider { display: none; }
+}
+
+
+/* Founder / Principal Bio Strip */
+.founder-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) auto;
+  gap: var(--s4);
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: var(--s4);
+  box-shadow: var(--shadow);
+}
+.founder-role {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--accent-cool);
+  margin-bottom: 4px;
+}
+.founder-affil {
+  font-size: 0.84rem;
+  color: var(--accent-warm-deep);
+  margin-bottom: var(--s2);
+  font-weight: 500;
+}
+.founder-portrait-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s2);
+}
+.founder-portrait {
+  width: 148px;
+  height: 148px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent-warm);
+  background: var(--surface-alt);
+}
+.portrait-placeholder {
+  width: 148px;
+  height: 148px;
+  border-radius: 50%;
+  border: 2px dashed var(--line);
+  background: var(--surface-alt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px;
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+@media (max-width: 720px) {
+  .founder-card { grid-template-columns: 1fr; text-align: center; }
+  .founder-portrait-wrap { justify-self: center; }
+}
+
+
+/* Principal / Founder Bio & External Profile Links */
+.bio-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  margin-top: var(--s3);
+}
+.bio-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 15px;
+  border-radius: 999px;
+  font-size: 0.84rem;
+  font-weight: 500;
+  background: var(--bg);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  transition: border-color 0.2s ease, transform 0.15s ease;
+}
+.bio-link-btn:hover {
+  border-color: var(--accent-warm-deep);
+  transform: translateY(-1px);
+}
+.studio-bio-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.618fr) auto;
+  gap: var(--s4);
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: var(--s4);
+  box-shadow: var(--shadow);
+}
+@media (max-width: 720px) {
+  .studio-bio-panel { grid-template-columns: 1fr; text-align: center; }
+  .bio-links { justify-content: center; }
+}
+
+  </style>
+  <script>
+(function () {
+  const root = document.documentElement;
+  const saved = localStorage.getItem('akaliko_site_theme');
+  if (saved === 'starlight') root.setAttribute('data-theme', 'starlight');
+  window.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    const syncLabel = () => {
+      const dark = root.getAttribute('data-theme') === 'starlight';
+      btn.textContent = dark ? '☀ Zion & Patagonia' : '✦ Starlight OLED';
+      btn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+    };
+    syncLabel();
+    btn.addEventListener('click', () => {
+      const next = root.getAttribute('data-theme') === 'starlight' ? 'zion' : 'starlight';
+      if (next === 'starlight') root.setAttribute('data-theme', 'starlight');
+      else root.removeAttribute('data-theme');
+      localStorage.setItem('akaliko_site_theme', next);
+      syncLabel();
+    });
+  });
+})();
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-group">
+        <span class="brand-title">Akaliko Designs</span>
+        <span class="brand-sub">Engineering for Timelessness</span>
+      </a>
+      <nav class="primary-nav" aria-label="Main site navigation">
+        <a href="index.html">Studio Home</a>
+        <a href="hardware.html" class="active">Hardware</a>
+        <a href="about.html">About</a>
+        <a href="industries.html">Industries</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+        <span class="nav-divider" aria-hidden="true"></span>
+        <a href="meditation-timer.html">App Development</a>
+        <button type="button" id="themeToggle" class="theme-toggle">✦ Starlight OLED</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="status-banner" role="status">
+          <span class="status-dot" aria-hidden="true"></span>
+          <div><strong>Project Availability Note:</strong> Akaliko Hardware Development is not currently taking on new projects.</div>
+        </div>
+        <div class="eyebrow">Akaliko Hardware Development</div>
+        <h1>Engineering for Timelessness in Physical Hardware.</h1>
+        <p class="lead">
+          Mechanical engineering consultancy specializing in AI-enabled hardware, consumer electronics, industrial automation, and industrial electronics—with 14 years of industry experience and US &amp; Asia manufacturing across low- to high-volume production.
+        </p>
+        <div class="cta-row">
+          <a href="services.html" class="btn">Product Development Services →</a>
+          <a href="about.html" class="btn secondary">About Principal Engineer</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker">Operating Principles</span>
+          <h2>Truthfulness, Reliability, Wellbeing &amp; Integrity</h2>
+        </div>
+        <div class="grid-4">
+          <article class="card">
+            <div>
+              <h3>Truthfulness</h3>
+              <p>Candid feasibility reviews, realistic tolerance stacks, and transparent cost/tooling trade-offs early in the program.</p>
+            </div>
+          </article>
+          <article class="card">
+            <div>
+              <h3>Reliability</h3>
+              <p>Disciplined DFR and DFRel engineering so enclosures, mechanisms, and assemblies endure real-world operation.</p>
+            </div>
+          </article>
+          <article class="card">
+            <div>
+              <h3>Wellbeing</h3>
+              <p>Ergonomic clarity, tactile precision, and safe human-machine interaction centered on human needs.</p>
+            </div>
+          </article>
+          <article class="card">
+            <div>
+              <h3>Integrity</h3>
+              <p>Steady stewardship from CAD and FEA through supplier qualification, pilot builds, and production handoff.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" style="border-bottom:none">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker">Production Horizons</span>
+          <h2>High-Volume to Low-Volume Experience</h2>
+        </div>
+        <div class="grid-3">
+          <article class="card subtle">
+            <span class="tier-badge">Near Term · Prototype</span>
+            <div class="tier-metric">1 – 50 Units</div>
+            <div class="tier-timeline">6 – 8 Weeks</div>
+            <p>Functional prototypes, CNC/additive builds, mechanical packaging, and early structural/thermal validation.</p>
+          </article>
+          <article class="card subtle">
+            <span class="tier-badge">Medium Term · Low Volume</span>
+            <div class="tier-metric">50 – 1,000 Units</div>
+            <div class="tier-timeline">8 – 10 Weeks</div>
+            <p>Bridge tooling, sheet metal fabrication, assembly fixtures, and pilot production runs.</p>
+          </article>
+          <article class="card subtle">
+            <span class="tier-badge">Long Term · Mass Production</span>
+            <div class="tier-metric">&gt; 1,000 Units</div>
+            <div class="tier-timeline">10 – 12 Weeks</div>
+            <p>Production tooling DFM/DFA, reliability hardening, and scalable medium-to-high volume manufacturing transition.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>Akaliko Designs</strong> — Engineering for Timelessness<br>
+        <span>Norvin B. Cuentas · Truthfulness · Reliability · Wellbeing · Integrity · Right Respect</span>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Studio Home</a>
+        <a href="hardware.html">Hardware</a>
+        <a href="about.html">About</a>
+        <a href="meditation-timer.html">App Development</a>
+        <a href="https://www.linkedin.com/in/norvincuentas" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.akalikodesigns.com/portfolio" target="_blank" rel="noopener">Portfolio</a>
+        <a href="https://anorthernfriend.substack.com/" target="_blank" rel="noopener">Substack (Anorthernfriend)</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

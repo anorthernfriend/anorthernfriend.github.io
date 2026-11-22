@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akaliko App Development — Akaliko Meditation Timer™ (Under Development)</title>
+  <meta name="description" content="Design ethos, unadorned dial rationale, bounded randomness, and research basis for Akaliko Meditation Timer, currently under development.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+/* Akaliko Designs — Unified Stylesheet (Zion & Patagonia + Starlight OLED) */
+:root {
+  --phi: 1.618;
+  --s1: 8px;
+  --s2: 13px;
+  --s3: 21px;
+  --s4: 34px;
+  --s5: 55px;
+  --s6: 89px;
+  --bg: #E2DAD3;
+  --surface: #EADCD3;
+  --surface-alt: #EFE8E1;
+  --fg: #3D312A;
+  --ink: #3E4A69;
+  --muted: rgba(61, 49, 42, 0.76);
+  --line: rgba(62, 74, 105, 0.22);
+  --accent-warm: #DAA58D;
+  --accent-warm-deep: #B5735B;
+  --accent-cool: #4A6E67;
+  --accent-cool-soft: #8BC7BD;
+  --btn-bg: #3D312A;
+  --btn-fg: #F4EFEA;
+  --shadow: 0 10px 30px rgba(61, 49, 42, 0.06);
+  --font-sans: "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "EB Garamond", Georgia, serif;
+}
+
+html[data-theme="starlight"] {
+  --bg: #000000;
+  --surface: #0A0A0A;
+  --surface-alt: #111111;
+  --fg: #D8D8D8;
+  --ink: #F2F2F2;
+  --muted: #9A9A9A;
+  --line: #262626;
+  --accent-warm: #DAA58D;
+  --accent-warm-deep: #E6B5A0;
+  --accent-cool: #8BC7BD;
+  --accent-cool-soft: #8BC7BD;
+  --btn-bg: #F2F2F2;
+  --btn-fg: #000000;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.65);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  line-height: 1.618;
+  transition: background-color 0.35s ease, color 0.35s ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 var(--s3);
+}
+
+header.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--bg) 90%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+
+.header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2);
+  padding: var(--s2) 0;
+}
+
+.brand-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.brand-title {
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.brand-sub {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+nav.primary-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s1);
+}
+
+nav.primary-nav a {
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  border-radius: 999px;
+  color: var(--muted);
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+nav.primary-nav a:hover {
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+nav.primary-nav a.active {
+  color: var(--ink);
+  background: var(--surface);
+  border-color: var(--accent-warm);
+  font-weight: 500;
+}
+
+.nav-divider {
+  width: 1px;
+  height: 18px;
+  background: var(--line);
+  margin: 0 4px;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 13px;
+  font-family: inherit;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent-warm);
+}
+
+.status-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s2);
+  padding: var(--s2) var(--s3);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--accent-warm) 18%, var(--surface));
+  border: 1px solid var(--accent-warm);
+  color: var(--ink);
+  font-size: 0.92rem;
+  margin-bottom: var(--s3);
+}
+
+.status-banner.cool {
+  background: color-mix(in srgb, var(--accent-cool) 15%, var(--surface));
+  border-color: var(--accent-cool);
+}
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent-warm-deep);
+  margin-top: 7px;
+  flex: 0 0 auto;
+}
+
+.status-banner.cool .status-dot {
+  background: var(--accent-cool);
+}
+
+.hero {
+  padding: var(--s5) 0 var(--s4);
+  border-bottom: 1px solid var(--line);
+}
+
+.hero-centered {
+  padding: var(--s6) 0 var(--s5);
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+
+.hero-centered .eyebrow { justify-content: center; }
+.hero-centered h1 { margin-left: auto; margin-right: auto; max-width: 24ch; }
+.hero-centered .lead { margin-left: auto; margin-right: auto; }
+.hero-centered .cta-row { justify-content: center; }
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-cool);
+  margin-bottom: var(--s2);
+  font-weight: 500;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 21px;
+  height: 1px;
+  background: var(--accent-cool);
+}
+
+h1 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.1rem, 4.4vw, 3.25rem);
+  line-height: 1.15;
+  color: var(--ink);
+  margin: 0 0 var(--s3);
+  max-width: 22ch;
+}
+
+.lead {
+  font-size: 1.08rem;
+  color: var(--muted);
+  max-width: 64ch;
+  margin: 0 0 var(--s4);
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  align-items: center;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border: 1px solid var(--btn-bg);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.2s ease;
+}
+
+.btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+.btn.secondary {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+.btn.secondary:hover {
+  border-color: var(--accent-warm);
+  background: var(--surface);
+}
+
+.btn.small {
+  padding: 7px 14px;
+  font-size: 0.8rem;
+}
+
+section.band {
+  padding: var(--s5) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s1);
+  margin-bottom: var(--s4);
+}
+
+.section-kicker {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-warm-deep);
+  font-weight: 500;
+}
+
+h2 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(1.65rem, 3vw, 2.25rem);
+  line-height: 1.2;
+  color: var(--ink);
+  margin: 0;
+}
+
+h3 {
+  font-size: 1.14rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0 0 var(--s1);
+}
+
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--s3); }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--s3); }
+.grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--s3); }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: var(--s4);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--s3);
+}
+
+.card.subtle {
+  background: var(--surface-alt);
+  box-shadow: none;
+}
+
+.card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
+.card-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  padding-top: var(--s2);
+  border-top: 1px solid var(--line);
+  font-size: 0.85rem;
+}
+
+.card-links a {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.card-links a:hover {
+  color: var(--accent-warm-deep);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s1);
+  margin-bottom: var(--s3);
+}
+
+.filter-btn {
+  background: var(--surface);
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 15px;
+  font-family: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn.active, .filter-btn:hover {
+  color: var(--ink);
+  border-color: var(--accent-warm);
+  background: var(--surface-alt);
+  font-weight: 500;
+}
+
+.research-card[hidden] { display: none; }
+
+.research-meta {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.caveat-box {
+  margin-top: var(--s2);
+  padding: var(--s2);
+  border-radius: 10px;
+  background: var(--bg);
+  border-left: 3px solid var(--accent-warm-deep);
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+
+.lab-panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: var(--s4);
+  box-shadow: var(--shadow);
+}
+
+.lab-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--s3);
+}
+
+.strike-bars {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(36px, 1fr));
+  gap: 10px;
+  align-items: end;
+  min-height: 170px;
+  padding: var(--s3);
+  border-radius: 12px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+}
+
+.strike-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.strike-bar {
+  width: 100%;
+  max-width: 34px;
+  border-radius: 8px 8px 3px 3px;
+  background: linear-gradient(180deg, var(--accent-warm-deep), var(--accent-cool));
+  transition: height 0.3s ease;
+  min-height: 6px;
+}
+
+.strike-val { font-size: 0.72rem; font-variant-numeric: tabular-nums; color: var(--ink); }
+.strike-lbl { font-size: 0.68rem; color: var(--muted); }
+
+.gallery-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: var(--s3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+.frame-box {
+  position: relative;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  cursor: pointer;
+}
+
+.frame-portrait { aspect-ratio: 9 / 14; max-height: 360px; }
+.frame-wide { aspect-ratio: 16 / 10; }
+.frame-box img, .frame-box svg { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.82);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--s3);
+  z-index: 100;
+}
+
+.lightbox.open { display: flex; }
+
+.lightbox-inner {
+  background: var(--surface);
+  color: var(--fg);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  max-width: 780px;
+  width: 100%;
+  padding: var(--s3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+.tier-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent-cool) 16%, transparent);
+  color: var(--accent-cool);
+  font-weight: 500;
+  width: fit-content;
+}
+
+.tier-metric { font-family: var(--font-serif); font-size: 1.75rem; color: var(--ink); line-height: 1.2; }
+.tier-timeline { font-size: 0.84rem; color: var(--accent-warm-deep); font-weight: 500; }
+
+ul.clean-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--s1) 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+ul.clean-list li {
+  font-size: 0.9rem;
+  color: var(--muted);
+  padding-left: 16px;
+  position: relative;
+}
+
+ul.clean-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--accent-warm-deep);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--s2);
+}
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field.full { grid-column: 1 / -1; }
+label { font-size: 0.82rem; font-weight: 500; color: var(--ink); }
+
+input, select, textarea {
+  width: 100%;
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 11px 13px;
+  font-family: inherit;
+  font-size: 0.94rem;
+  transition: border-color 0.2s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent-cool);
+}
+
+footer.site-footer {
+  padding: var(--s4) 0 var(--s5);
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--s3);
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+}
+
+.footer-links a:hover { color: var(--ink); }
+
+@media (max-width: 720px) {
+  .header-inner { flex-direction: column; align-items: flex-start; }
+  .nav-divider { display: none; }
+}
+
+
+/* Founder / Principal Bio Strip */
+.founder-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) auto;
+  gap: var(--s4);
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: var(--s4);
+  box-shadow: var(--shadow);
+}
+.founder-role {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--accent-cool);
+  margin-bottom: 4px;
+}
+.founder-affil {
+  font-size: 0.84rem;
+  color: var(--accent-warm-deep);
+  margin-bottom: var(--s2);
+  font-weight: 500;
+}
+.founder-portrait-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s2);
+}
+.founder-portrait {
+  width: 148px;
+  height: 148px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent-warm);
+  background: var(--surface-alt);
+}
+.portrait-placeholder {
+  width: 148px;
+  height: 148px;
+  border-radius: 50%;
+  border: 2px dashed var(--line);
+  background: var(--surface-alt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px;
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+@media (max-width: 720px) {
+  .founder-card { grid-template-columns: 1fr; text-align: center; }
+  .founder-portrait-wrap { justify-self: center; }
+}
+
+
+/* Principal / Founder Bio & External Profile Links */
+.bio-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  margin-top: var(--s3);
+}
+.bio-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 15px;
+  border-radius: 999px;
+  font-size: 0.84rem;
+  font-weight: 500;
+  background: var(--bg);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  transition: border-color 0.2s ease, transform 0.15s ease;
+}
+.bio-link-btn:hover {
+  border-color: var(--accent-warm-deep);
+  transform: translateY(-1px);
+}
+.studio-bio-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.618fr) auto;
+  gap: var(--s4);
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: var(--s4);
+  box-shadow: var(--shadow);
+}
+@media (max-width: 720px) {
+  .studio-bio-panel { grid-template-columns: 1fr; text-align: center; }
+  .bio-links { justify-content: center; }
+}
+
+  </style>
+  <script>
+(function () {
+  const root = document.documentElement;
+  const saved = localStorage.getItem('akaliko_site_theme');
+  if (saved === 'starlight') root.setAttribute('data-theme', 'starlight');
+  window.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    const syncLabel = () => {
+      const dark = root.getAttribute('data-theme') === 'starlight';
+      btn.textContent = dark ? '☀ Zion & Patagonia' : '✦ Starlight OLED';
+      btn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+    };
+    syncLabel();
+    btn.addEventListener('click', () => {
+      const next = root.getAttribute('data-theme') === 'starlight' ? 'zion' : 'starlight';
+      if (next === 'starlight') root.setAttribute('data-theme', 'starlight');
+      else root.removeAttribute('data-theme');
+      localStorage.setItem('akaliko_site_theme', next);
+      syncLabel();
+    });
+  });
+})();
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-group">
+        <span class="brand-title">Akaliko Designs</span>
+        <span class="brand-sub">Engineering for Timelessness</span>
+      </a>
+      <nav class="primary-nav" aria-label="Main site navigation">
+        <a href="index.html">Studio Home</a>
+        <a href="hardware.html">Hardware</a>
+        <a href="about.html">About</a>
+        <a href="industries.html">Industries</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+        <span class="nav-divider" aria-hidden="true"></span>
+        <a href="meditation-timer.html" class="active">App Development</a>
+        <button type="button" id="themeToggle" class="theme-toggle">✦ Starlight OLED</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="status-banner cool" role="status">
+          <span class="status-dot" aria-hidden="true"></span>
+          <div><strong>Development Status:</strong> The Akaliko Meditation Timer is under development.</div>
+        </div>
+        <div class="eyebrow">Akaliko App Development · Akaliko Meditation Timer™</div>
+        <h1>Quiet Software Grounded in Ethos &amp; Research.</h1>
+        <p class="lead">
+          Designed for lay meditators and monastics alike: 100% offline-first, free for everyone, with zero ads, zero streaks, zero telemetry, and an unadorned dial that respects stillness and negative space.
+        </p>
+        <div class="cta-row">
+          <a href="#ethos" class="btn">Guiding Principles</a>
+          <a href="#envelope-lab" class="btn secondary">Interactive Envelope Lab</a>
+          <a href="#research" class="btn secondary">Research &amp; Design Rationale</a>
+          <a href="#gallery" class="btn secondary">Screenshots &amp; Illustrations</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="ethos" class="band">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker">Product Ethos</span>
+          <h2>Timeless Utility Without Digital Friction</h2>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <div>
+              <h3>Right Respect &amp; Zero Friction</h3>
+              <p>No ads, social feeds, gamification, streak counts, or push notifications. Users open directly onto the functional timer.</p>
+            </div>
+          </article>
+          <article class="card">
+            <div>
+              <h3>Free for Lay &amp; Monastic Practitioners</h3>
+              <p>Free access for all practitioners without paywalls, engagement traps, or invasive verification.</p>
+            </div>
+          </article>
+          <article class="card">
+            <div>
+              <h3>Offline-First &amp; Unadorned Dial</h3>
+              <p>Zero telemetry or network dependency, passive OS-native scheduling for zero battery drain, and a clean, unadorned dial free of decorative shader noise.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="envelope-lab" class="band">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker">Design Craft &amp; Bounded Randomness</span>
+          <h2>Fibonacci Envelopes &amp; Natural Variation</h2>
+        </div>
+        <div class="lab-panel">
+          <div class="lab-controls">
+            <div class="filter-bar" style="margin-bottom:0" role="group" aria-label="Strike envelope model">
+              <button type="button" class="filter-btn active" data-env="rising">Rising (Gentle Wake)</button>
+              <button type="button" class="filter-btn" data-env="falling">Falling (Settling)</button>
+              <button type="button" class="filter-btn" data-env="swell">Swell</button>
+              <button type="button" class="filter-btn" data-env="even">Even</button>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+              <label style="display:flex;align-items:center;gap:6px;cursor:pointer">
+                <input type="checkbox" id="variationToggle" checked style="width:auto">
+                <span>Bounded "Give or Take" variation</span>
+              </label>
+              <button type="button" id="restrikeBtn" class="btn small">Re-strike (± variation)</button>
+            </div>
+          </div>
+          <div class="strike-bars" id="strikeBars" aria-live="polite"></div>
+          <p id="envCaption" style="margin-top:var(--s2);margin-bottom:0;font-size:0.9rem;color:var(--muted)"></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="research" class="band">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker">Research Basis</span>
+          <h2>Human-Factors, Circadian &amp; Acoustic Rationale</h2>
+        </div>
+        <div class="filter-bar" role="group" aria-label="Filter research topics">
+          <button type="button" class="filter-btn active" data-filter="all">All Topics</button>
+          <button type="button" class="filter-btn" data-filter="visual">Light &amp; Themes</button>
+          <button type="button" class="filter-btn" data-filter="audio">Acoustics &amp; Pacing</button>
+          <button type="button" class="filter-btn" data-filter="mind">Contemplative &amp; Privacy</button>
+        </div>
+        <div class="grid-2" id="researchGrid">
+          <article class="card research-card" data-topic="visual">
+            <div>
+              <div class="research-meta">Visual Safety · Sub-Hertz Light</div>
+              <h3>WCAG Flash Safety &amp; Slow Breathing Cadence</h3>
+              <p>Light signals stay in slow, breath-paced sub-Hertz frequencies (0.10–1.00 Hz), well below the 3 Hz flash threshold associated with photosensitive discomfort or seizure risk.</p>
+              <div class="caveat-box"><strong>Hardware note:</strong> Display luminance and closed-eyelid perception vary across OLED/LCD panels and cannot guarantee dark-adaptation preservation.</div>
+            </div>
+          </article>
+
+          <article class="card research-card" data-topic="visual">
+            <div>
+              <div class="research-meta">Circadian &amp; Theme Design</div>
+              <h3>Zion &amp; Patagonia, Starlight OLED &amp; Solar Themes</h3>
+              <p>Soft desaturated palettes (Sandstone Neutral, Warm Sand, Deep Granite, Muted Terracotta, Glacial Teal) reduce glare, Starlight (#000000) turns off OLED pixels in dark rooms, and time-of-day themes follow local solar dawn/dusk angles.</p>
+              <div class="caveat-box"><strong>Caveat:</strong> Screen color shifts support calmer evening viewing but do not replace light hygiene or medical sleep care.</div>
+            </div>
+          </article>
+
+          <article class="card research-card" data-topic="audio">
+            <div>
+              <div class="research-meta">Acoustic Startle &amp; Envelopes</div>
+              <h3>Exponential Fade-Ins, Fibonacci Steps &amp; Bounded Randomness</h3>
+              <p>Smooth exponential fade-ins avoid digital clicks and sudden startle after stillness, while bounded "give or take" variation (±8% interval / ±5% strength generally; ±0.8% / ±0.5% for gentle wake) keeps bells organic without chaotic unpredictability.</p>
+              <div class="caveat-box"><strong>Caveat:</strong> Web Audio synthesis approximates physical bronze and room acoustics; native builds target studio-recorded samples.</div>
+            </div>
+          </article>
+
+          <article class="card research-card" data-topic="mind">
+            <div>
+              <div class="research-meta">Non-Analytical Awareness &amp; Privacy</div>
+              <h3>No Streaks, No Metrics, Unadorned Dial &amp; Random Duration</h3>
+              <p>Removing hour totals, streaks, and decorative dial shaders prevents clock-watching and analytical comparison; Random duration ("?" before Begin) and 100% local storage protect quiet attention and privacy.</p>
+              <div class="caveat-box"><strong>Caveat:</strong> A meditation timer supports practice structure and reflection—it is not a clinical or therapeutic substitute.</div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery" class="band">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker">Visual Reference</span>
+          <h2>Screenshots &amp; Design Illustrations</h2>
+          <p class="lead" style="margin-bottom:0">
+            Load local PNG screenshots or SVG diagrams into any frame below to preview, or click any frame to inspect in full view.
+          </p>
+        </div>
+
+        <div class="grid-3" style="margin-bottom:var(--s4)">
+          <article class="gallery-card">
+            <div class="frame-box frame-portrait" data-title="Starlight Theme · Idle Dial" data-note="True black (#000000) OLED dial with golden-ratio vertical anchor.">
+              <div style="display:flex;width:100%;height:100%;align-items:center;justify-content:center;padding:16px;text-align:center;font-size:0.85rem;color:var(--muted)">
+                <div><strong>Starlight Idle Frame</strong><br>Load PNG screenshot below</div>
+              </div>
+            </div>
+            <div>
+              <h3>Starlight Theme (Idle Dial)</h3>
+              <p style="font-size:0.86rem;color:var(--muted);margin:0">Pure OLED black canvas, tabular countdown, and unadorned ring.</p>
+            </div>
+            <label class="btn small secondary" style="width:fit-content;cursor:pointer">
+              Preview Local Image <input type="file" accept="image/*" hidden class="local-img-input">
+            </label>
+          </article>
+
+          <article class="gallery-card">
+            <div class="frame-box frame-portrait" data-title="Zion & Patagonia Palette" data-note="Low-glare Sandstone, Warm Sand, Deep Granite, Terracotta, and Glacial Teal.">
+              <div style="display:flex;width:100%;height:100%;align-items:center;justify-content:center;padding:16px;text-align:center;font-size:0.85rem;color:var(--muted)">
+                <div><strong>Zion &amp; Patagonia Frame</strong><br>Load PNG screenshot below</div>
+              </div>
+            </div>
+            <div>
+              <h3>Zion &amp; Patagonia Theme</h3>
+              <p style="font-size:0.86rem;color:var(--muted);margin:0">Soft, desaturated daylight/dusk surface palette with calm contrast.</p>
+            </div>
+            <label class="btn small secondary" style="width:fit-content;cursor:pointer">
+              Preview Local Image <input type="file" accept="image/*" hidden class="local-img-input">
+            </label>
+          </article>
+
+          <article class="gallery-card">
+            <div class="frame-box frame-portrait" data-title="Austere Active Sitting" data-note="Stripped-back active sit showing only the progress band and remaining time.">
+              <div style="display:flex;width:100%;height:100%;align-items:center;justify-content:center;padding:16px;text-align:center;font-size:0.85rem;color:var(--muted)">
+                <div><strong>Austere Active Sit Frame</strong><br>Load PNG screenshot below</div>
+              </div>
+            </div>
+            <div>
+              <h3>Austere Active Sitting</h3>
+              <p style="font-size:0.86rem;color:var(--muted);margin:0">Minimal visual surface during active sits, revealed on touch.</p>
+            </div>
+            <label class="btn small secondary" style="width:fit-content;cursor:pointer">
+              Preview Local Image <input type="file" accept="image/*" hidden class="local-img-input">
+            </label>
+          </article>
+        </div>
+
+        <div class="grid-2">
+          <article class="gallery-card">
+            <div class="frame-box frame-wide" data-title="Golden Ratio & Fibonacci Strike Curve" data-note="Visualizing φ = 1.618 vertical proportion and decimal-Fibonacci strike progression.">
+              <svg viewBox="0 0 640 380" role="img" aria-label="Diagram of golden ratio vertical anchor and Fibonacci strike progression">
+                <rect width="640" height="380" fill="none"/>
+                <rect x="28" y="24" width="260" height="332" rx="12" fill="rgba(74,110,103,0.12)" stroke="currentColor" stroke-opacity="0.25"/>
+                <line x1="28" y1="150" x2="288" y2="150" stroke="#B5735B" stroke-dasharray="5 5"/>
+                <circle cx="158" cy="150" r="68" fill="none" stroke="currentColor" stroke-width="2" stroke-opacity="0.65"/>
+                <text x="158" y="155" text-anchor="middle" fill="currentColor" font-size="16" font-family="sans-serif">~38.2% φ</text>
+                <text x="158" y="252" text-anchor="middle" fill="currentColor" font-size="12" font-family="sans-serif" opacity="0.8">1 / φ ≈ 0.618 below</text>
+                <line x1="330" y1="310" x2="606" y2="310" stroke="currentColor" stroke-opacity="0.35"/>
+                <line x1="330" y1="54" x2="330" y2="310" stroke="currentColor" stroke-opacity="0.35"/>
+                <path d="M342 304 Q415 296 468 232 T596 74" fill="none" stroke="#B5735B" stroke-width="3"/>
+                <text x="468" y="344" text-anchor="middle" fill="currentColor" font-size="12" font-family="sans-serif" opacity="0.8">Fibonacci Envelope &amp; Bounded ± Variation</text>
+              </svg>
+            </div>
+            <div>
+              <h3>Illustration 1 · Golden Anchor &amp; Strike Curve</h3>
+              <p style="font-size:0.86rem;color:var(--muted);margin:0">Vertical proportion (φ = 1.618) paired with Fibonacci strike curves.</p>
+            </div>
+          </article>
+
+          <article class="gallery-card">
+            <div class="frame-box frame-wide" data-title="Sub-Hertz Pulse & Warm Amber Signal" data-note="Slow breath-paced cycles (0.10–1.00 Hz) with low-glare warm amber / glacial blue options.">
+              <svg viewBox="0 0 640 380" role="img" aria-label="Diagram of sub-Hertz breathing light cycle">
+                <rect width="640" height="380" fill="none"/>
+                <rect x="28" y="24" width="584" height="332" rx="12" fill="rgba(218,165,141,0.12)" stroke="currentColor" stroke-opacity="0.25"/>
+                <path d="M56 210 C120 80, 180 340, 244 210 C308 80, 368 340, 432 210 C496 80, 556 340, 584 210" fill="none" stroke="#4A6E67" stroke-width="3"/>
+                <text x="320" y="334" text-anchor="middle" fill="currentColor" font-size="12" font-family="sans-serif" opacity="0.8">0.10 – 1.00 Hz Sub-Hertz Cadence (&lt; 3 Hz WCAG Limit)</text>
+              </svg>
+            </div>
+            <div>
+              <h3>Illustration 2 · Sub-Hertz Light Cadence</h3>
+              <p style="font-size:0.86rem;color:var(--muted);margin:0">Breath-paced sub-Hertz light curve safely below WCAG flash limits.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lbTitle">
+      <div class="lightbox-inner">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+          <h3 id="lbTitle" style="margin:0"></h3>
+          <button type="button" id="lbClose" class="btn small secondary">Close</button>
+        </div>
+        <div id="lbBody" style="max-height:70vh;overflow:auto;display:flex;justify-content:center;align-items:center;padding:8px 0"></div>
+        <p id="lbNote" style="margin:0;font-size:0.88rem;color:var(--muted)"></p>
+      </div>
+    </div>
+    <section id="creator" class="band" style="border-bottom:none">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker">Creator &amp; Contemplative Writing</span>
+          <h2>Developed by Norvin B. Cuentas</h2>
+        </div>
+        <div class="card">
+          <div>
+            <p>
+              <strong>Akaliko Meditation Timer™</strong> is designed and built by <strong>Norvin B. Cuentas</strong> (Sole Proprietor, Akaliko Designs) as a quiet, free utility for lay meditators and monastics. Alongside software and mechanical product engineering, Norvin shares reflective essays within the container of meditation practice on Substack under the pen name <strong>Anorthernfriend</strong>.
+            </p>
+            <div class="bio-links">
+              <a href="https://anorthernfriend.substack.com/" target="_blank" rel="noopener" class="bio-link-btn">Substack · Anorthernfriend ↗</a>
+              <a href="https://www.linkedin.com/in/norvincuentas" target="_blank" rel="noopener" class="bio-link-btn">LinkedIn Profile ↗</a>
+              <a href="https://www.akalikodesigns.com/portfolio" target="_blank" rel="noopener" class="bio-link-btn">Engineering Portfolio ↗</a>
+              <a href="about.html" class="bio-link-btn">Full Studio Bio →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>Akaliko Designs</strong> — Engineering for Timelessness<br>
+        <span>Norvin B. Cuentas · Truthfulness · Reliability · Wellbeing · Integrity · Right Respect</span>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Studio Home</a>
+        <a href="hardware.html">Hardware</a>
+        <a href="about.html">About</a>
+        <a href="meditation-timer.html">App Development</a>
+        <a href="https://www.linkedin.com/in/norvincuentas" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.akalikodesigns.com/portfolio" target="_blank" rel="noopener">Portfolio</a>
+        <a href="https://anorthernfriend.substack.com/" target="_blank" rel="noopener">Substack (Anorthernfriend)</a>
+      </div>
+    </div>
+  </footer>
+    <script>
+      (function () {
+        const ENVELOPES = {
+          rising: {
+            base: [8, 13, 21, 34, 55, 89],
+            label: 'Rising (Gentle Wake): steps up gently along Fibonacci strengths so waking from stillness feels unhurried.'
+          },
+          falling: {
+            base: [89, 55, 34, 21, 13, 8],
+            label: 'Falling (Settling): opens full and eases down as attention settles.'
+          },
+          swell: {
+            base: [13, 34, 89, 89, 34, 13],
+            label: 'Swell: rises toward peak strength and settles back smoothly.'
+          },
+          even: {
+            base: [55, 55, 55, 55, 55, 55],
+            label: 'Even: steady strikes across the sequence.'
+          }
+        };
+
+        let activeEnv = 'rising';
+        let jitter = ENVELOPES.rising.base.map(() => 1);
+
+        function recalcJitter() {
+          const enabled = document.getElementById('variationToggle').checked;
+          const span = activeEnv === 'rising' ? 0.008 : 0.05;
+          jitter = ENVELOPES[activeEnv].base.map(() => enabled ? 1 + (Math.random() * 2 - 1) * span : 1);
+        }
+
+        function renderBars() {
+          const container = document.getElementById('strikeBars');
+          const caption = document.getElementById('envCaption');
+          const data = ENVELOPES[activeEnv];
+          container.innerHTML = '';
+          data.base.forEach((val, idx) => {
+            const mult = jitter[idx] ?? 1;
+            const pct = Math.max(4, Math.min(100, +(val * mult).toFixed(1)));
+            const col = document.createElement('div');
+            col.className = 'strike-col';
+            col.innerHTML =
+              '<div class="strike-val">' + pct + '%</div>' +
+              '<div class="strike-bar" style="height:' + Math.max(8, pct * 1.35) + 'px"></div>' +
+              '<div class="strike-lbl">#' + (idx + 1) + '</div>';
+            container.appendChild(col);
+          });
+          caption.textContent = data.label;
+        }
+
+        document.querySelectorAll('[data-env]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            document.querySelectorAll('[data-env]').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            activeEnv = btn.getAttribute('data-env');
+            recalcJitter();
+            renderBars();
+          });
+        });
+
+        document.getElementById('variationToggle').addEventListener('change', () => { recalcJitter(); renderBars(); });
+        document.getElementById('restrikeBtn').addEventListener('click', () => { recalcJitter(); renderBars(); });
+        renderBars();
+
+        document.querySelectorAll('[data-filter]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const topic = btn.getAttribute('data-filter');
+            document.querySelectorAll('.research-card').forEach(card => {
+              card.hidden = topic !== 'all' && card.getAttribute('data-topic') !== topic;
+            });
+          });
+        });
+
+        document.querySelectorAll('.local-img-input').forEach(input => {
+          input.addEventListener('change', (e) => {
+            const file = e.target.files && e.target.files[0];
+            if (!file) return;
+            const url = URL.createObjectURL(file);
+            const card = input.closest('.gallery-card');
+            const box = card.querySelector('.frame-box');
+            box.innerHTML = '';
+            const img = document.createElement('img');
+            img.src = url;
+            box.appendChild(img);
+          });
+        });
+
+        const lb = document.getElementById('lightbox');
+        const lbTitle = document.getElementById('lbTitle');
+        const lbBody = document.getElementById('lbBody');
+        const lbNote = document.getElementById('lbNote');
+
+        document.querySelectorAll('.frame-box').forEach(box => {
+          box.addEventListener('click', () => {
+            lbTitle.textContent = box.getAttribute('data-title') || '';
+            lbNote.textContent = box.getAttribute('data-note') || '';
+            lbBody.innerHTML = '';
+            const img = box.querySelector('img');
+            const svg = box.querySelector('svg');
+            if (img) {
+              const clone = document.createElement('img');
+              clone.src = img.src;
+              clone.style.maxWidth = '100%';
+              clone.style.maxHeight = '65vh';
+              clone.style.borderRadius = '10px';
+              lbBody.appendChild(clone);
+            } else if (svg) {
+              const clone = svg.cloneNode(true);
+              clone.style.width = '100%';
+              clone.style.maxHeight = '62vh';
+              lbBody.appendChild(clone);
+            } else {
+              const msg = document.createElement('p');
+              msg.textContent = 'Use "Preview Local Image" on the card to load a screenshot.';
+              lbBody.appendChild(msg);
+            }
+            lb.classList.add('open');
+          });
+        });
+
+        document.getElementById('lbClose').addEventListener('click', () => lb.classList.remove('open'));
+        lb.addEventListener('click', (e) => { if (e.target === lb) lb.classList.remove('open'); });
+      })();
+    </script>
+</body>
+</html>

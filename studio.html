@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="assets/akaliko-mark-gold.png">
+  <title>Akaliko Designs — Engineering for Timelessness</title>
+  <meta name="description" content="Akaliko Designs studio gateway by Norvin B. Cuentas: Hardware Development (not currently taking on new projects) and App Development (the Akaliko Meditation Timer is under development).">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+/* Akaliko Designs — Unified Stylesheet (Zion & Patagonia + Starlight OLED) */
+:root {
+  --phi: 1.618;
+  --s1: 8px;
+  --s2: 13px;
+  --s3: 21px;
+  --s4: 34px;
+  --s5: 55px;
+  --s6: 89px;
+  --bg: #E2DAD3;
+  --surface: #EADCD3;
+  --surface-alt: #EFE8E1;
+  --fg: #3D312A;
+  --ink: #3E4A69;
+  --muted: rgba(61, 49, 42, 0.76);
+  --line: rgba(62, 74, 105, 0.22);
+  --accent-warm: #DAA58D;
+  --accent-warm-deep: #B5735B;
+  --accent-cool: #4A6E67;
+  --accent-cool-soft: #8BC7BD;
+  --btn-bg: #3D312A;
+  --btn-fg: #F4EFEA;
+  --shadow: 0 10px 30px rgba(61, 49, 42, 0.06);
+  --font-sans: "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "EB Garamond", Georgia, serif;
+}
+
+html[data-theme="starlight"] {
+  --bg: #000000;
+  --surface: #0A0A0A;
+  --surface-alt: #111111;
+  --fg: #D8D8D8;
+  --ink: #F2F2F2;
+  --muted: #9A9A9A;
+  --line: #262626;
+  --accent-warm: #DAA58D;
+  --accent-warm-deep: #E6B5A0;
+  --accent-cool: #8BC7BD;
+  --accent-cool-soft: #8BC7BD;
+  --btn-bg: #F2F2F2;
+  --btn-fg: #000000;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.65);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  line-height: 1.618;
+  transition: background-color 0.35s ease, color 0.35s ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 var(--s3);
+}
+
+header.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--bg) 90%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+
+.header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2);
+  padding: var(--s2) 0;
+}
+
+.brand-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.brand-title {
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.brand-sub {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+nav.primary-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s1);
+}
+
+nav.primary-nav a {
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  border-radius: 999px;
+  color: var(--muted);
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+nav.primary-nav a:hover {
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+nav.primary-nav a.active {
+  color: var(--ink);
+  background: var(--surface);
+  border-color: var(--accent-warm);
+  font-weight: 500;
+}
+
+.nav-divider {
+  width: 1px;
+  height: 18px;
+  background: var(--line);
+  margin: 0 4px;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 13px;
+  font-family: inherit;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent-warm);
+}
+
+.status-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s2);
+  padding: var(--s2) var(--s3);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--accent-warm) 18%, var(--surface));
+  border: 1px solid var(--accent-warm);
+  color: var(--ink);
+  font-size: 0.92rem;
+  margin-bottom: var(--s3);
+}
+
+.status-banner.cool {
+  background: color-mix(in srgb, var(--accent-cool) 15%, var(--surface));
+  border-color: var(--accent-cool);
+}
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent-warm-deep);
+  margin-top: 7px;
+  flex: 0 0 auto;
+}
+
+.status-banner.cool .status-dot {
+  background: var(--accent-cool);
+}
+
+.hero {
+  padding: var(--s5) 0 var(--s4);
+  border-bottom: 1px solid var(--line);
+}
+
+.hero-centered {
+  padding: var(--s6) 0 var(--s5);
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+
+.hero-centered .eyebrow { justify-content: center; }
+.hero-centered h1 { margin-left: auto; margin-right: auto; max-width: 24ch; }
+.hero-centered .lead { margin-left: auto; margin-right: auto; }
+.hero-centered .cta-row { justify-content: center; }
+
+.hero-vista {
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(18, 24, 34, 0.50) 0%, rgba(18, 24, 34, 0.62) 58%, rgba(14, 18, 26, 0.78) 100%),
+    url("assets/hero-evergreen-vista.jpg") center 46% / cover no-repeat;
+  color: #F7F3EC;
+  border-bottom: 1px solid var(--line);
+}
+html[data-theme="starlight"] .hero-vista {
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.56) 0%, rgba(0, 0, 0, 0.68) 62%, rgba(0, 0, 0, 0.90) 100%),
+    url("assets/hero-evergreen-vista.jpg") center 46% / cover no-repeat;
+}
+.hero-vista .eyebrow { color: #E6C3AD; }
+.hero-vista .eyebrow::before { background: #E6C3AD; }
+.hero-vista h1 { color: #F7F3EC; text-shadow: 0 2px 18px rgba(0, 0, 0, 0.35); }
+.hero-vista .lead { color: rgba(247, 243, 236, 0.90); text-shadow: 0 1px 10px rgba(0, 0, 0, 0.30); }
+.hero-vista .btn { background: #F4EFEA; color: #1E242E; border-color: #F4EFEA; }
+.hero-vista .btn.secondary {
+  background: rgba(20, 25, 34, 0.42);
+  color: #F7F3EC;
+  border-color: rgba(247, 243, 236, 0.52);
+  backdrop-filter: blur(6px);
+}
+.hero-vista .btn.secondary:hover {
+  background: rgba(247, 243, 236, 0.18);
+  border-color: #F7F3EC;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-cool);
+  margin-bottom: var(--s2);
+  font-weight: 500;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 21px;
+  height: 1px;
+  background: var(--accent-cool);
+}
+
+h1 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.1rem, 4.4vw, 3.25rem);
+  line-height: 1.15;
+  color: var(--ink);
+  margin: 0 0 var(--s3);
+  max-width: 22ch;
+}
+
+.lead {
+  font-size: 1.08rem;
+  color: var(--muted);
+  max-width: 64ch;
+  margin: 0 0 var(--s4);
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  align-items: center;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border: 1px solid var(--btn-bg);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.2s ease;
+}
+
+.btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+.btn.secondary {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+.btn.secondary:hover {
+  border-color: var(--accent-warm);
+  background: var(--surface);
+}
+
+.btn.small {
+  padding: 7px 14px;
+  font-size: 0.8rem;
+}
+
+section.band {
+  padding: var(--s5) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s1);
+  margin-bottom: var(--s4);
+}
+
+.section-kicker {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-warm-deep);
+  font-weight: 500;
+}
+
+h2 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(1.65rem, 3vw, 2.25rem);
+  line-height: 1.2;
+  color: var(--ink);
+  margin: 0;
+}
+
+h3 {
+  font-size: 1.14rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0 0 var(--s1);
+}
+
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--s3); }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--s3); }
+.grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--s3); }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: var(--s4);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--s3);
+}
+
+.card.subtle {
+  background: var(--surface-alt);
+  box-shadow: none;
+}
+
+.card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
+.card-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  padding-top: var(--s2);
+  border-top: 1px solid var(--line);
+  font-size: 0.85rem;
+}
+
+.card-links a {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.card-links a:hover {
+  color: var(--accent-warm-deep);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s1);
+  margin-bottom: var(--s3);
+}
+
+.filter-btn {
+  background: var(--surface);
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 15px;
+  font-family: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn.active, .filter-btn:hover {
+  color: var(--ink);
+  border-color: var(--accent-warm);
+  background: var(--surface-alt);
+  font-weight: 500;
+}
+
+.research-card[hidden] { display: none; }
+
+.research-meta {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.caveat-box {
+  margin-top: var(--s2);
+  padding: var(--s2);
+  border-radius: 10px;
+  background: var(--bg);
+  border-left: 3px solid var(--accent-warm-deep);
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+
+.lab-panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: var(--s4);
+  box-shadow: var(--shadow);
+}
+
+.lab-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--s3);
+}
+
+.strike-bars {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(36px, 1fr));
+  gap: 10px;
+  align-items: end;
+  min-height: 170px;
+  padding: var(--s3);
+  border-radius: 12px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+}
+
+.strike-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.strike-bar {
+  width: 100%;
+  max-width: 34px;
+  border-radius: 8px 8px 3px 3px;
+  background: linear-gradient(180deg, var(--accent-warm-deep), var(--accent-cool));
+  transition: height 0.3s ease;
+  min-height: 6px;
+}
+
+.strike-val { font-size: 0.72rem; font-variant-numeric: tabular-nums; color: var(--ink); }
+.strike-lbl { font-size: 0.68rem; color: var(--muted); }
+
+.gallery-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: var(--s3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+.frame-box {
+  position: relative;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  cursor: pointer;
+}
+
+.frame-portrait { aspect-ratio: 9 / 14; max-height: 360px; }
+.frame-wide { aspect-ratio: 16 / 10; }
+.frame-box img, .frame-box svg { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.82);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--s3);
+  z-index: 100;
+}
+
+.lightbox.open { display: flex; }
+
+.lightbox-inner {
+  background: var(--surface);
+  color: var(--fg);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  max-width: 780px;
+  width: 100%;
+  padding: var(--s3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+.tier-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent-cool) 16%, transparent);
+  color: var(--accent-cool);
+  font-weight: 500;
+  width: fit-content;
+}
+
+.tier-metric { font-family: var(--font-serif); font-size: 1.75rem; color: var(--ink); line-height: 1.2; }
+.tier-timeline { font-size: 0.84rem; color: var(--accent-warm-deep); font-weight: 500; }
+
+ul.clean-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--s1) 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+ul.clean-list li {
+  font-size: 0.9rem;
+  color: var(--muted);
+  padding-left: 16px;
+  position: relative;
+}
+
+ul.clean-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--accent-warm-deep);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--s2);
+}
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field.full { grid-column: 1 / -1; }
+label { font-size: 0.82rem; font-weight: 500; color: var(--ink); }
+
+input, select, textarea {
+  width: 100%;
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 11px 13px;
+  font-family: inherit;
+  font-size: 0.94rem;
+  transition: border-color 0.2s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent-cool);
+}
+
+footer.site-footer {
+  padding: var(--s4) 0 var(--s5);
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--s3);
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+}
+
+.footer-links a:hover { color: var(--ink); }
+
+@media (max-width: 720px) {
+  .header-inner { flex-direction: column; align-items: flex-start; }
+  .nav-divider { display: none; }
+}
+
+
+/* Founder / Principal Bio Strip */
+.founder-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) auto;
+  gap: var(--s4);
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: var(--s4);
+  box-shadow: var(--shadow);
+}
+.founder-role {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--accent-cool);
+  margin-bottom: 4px;
+}
+.founder-affil {
+  font-size: 0.84rem;
+  color: var(--accent-warm-deep);
+  margin-bottom: var(--s2);
+  font-weight: 500;
+}
+.founder-portrait-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s2);
+}
+.founder-portrait {
+  width: 148px;
+  height: 148px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent-warm);
+  background: var(--surface-alt);
+}
+.portrait-placeholder {
+  width: 148px;
+  height: 148px;
+  border-radius: 50%;
+  border: 2px dashed var(--line);
+  background: var(--surface-alt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px;
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+@media (max-width: 720px) {
+  .founder-card { grid-template-columns: 1fr; text-align: center; }
+  .founder-portrait-wrap { justify-self: center; }
+}
+
+
+/* Principal / Founder Bio & External Profile Links */
+.bio-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  margin-top: var(--s3);
+}
+.bio-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 15px;
+  border-radius: 999px;
+  font-size: 0.84rem;
+  font-weight: 500;
+  background: var(--bg);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  transition: border-color 0.2s ease, transform 0.15s ease;
+}
+.bio-link-btn:hover {
+  border-color: var(--accent-warm-deep);
+  transform: translateY(-1px);
+}
+.studio-bio-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.618fr) auto;
+  gap: var(--s4);
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: var(--s4);
+  box-shadow: var(--shadow);
+}
+@media (max-width: 720px) {
+  .studio-bio-panel { grid-template-columns: 1fr; text-align: center; }
+  .bio-links { justify-content: center; }
+}
+
+
+/* Akaliko brand mark in header & wordmark lockup */
+.brand-group { display: inline-flex; flex-direction: row; align-items: center; gap: 11px; text-decoration: none; }
+.brand-mark { width: 30px; height: 30px; object-fit: contain; flex: 0 0 auto; display: block; }
+.brand-text { display: flex; flex-direction: column; }
+.footer-lockup { display: block; width: 148px; height: auto; margin-bottom: 10px; opacity: 0.88; filter: brightness(0.28); }
+html[data-theme="starlight"] .footer-lockup { filter: brightness(1.55); opacity: 0.92; }
+.founder-portrait-circle {
+  width: 176px; height: 202px; object-fit: contain; display: block;
+  background: transparent; border: none; border-radius: 0;
+  filter: drop-shadow(0 10px 22px rgba(24, 28, 36, 0.18));
+}
+.client-card {
+  display: grid; grid-template-columns: auto 1fr; gap: var(--s4); align-items: center;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+  padding: var(--s4); box-shadow: var(--shadow);
+}
+.client-logo-box {
+  width: 116px; height: 116px; border-radius: 14px; background: #ffffff;
+  border: 1px solid rgba(62, 74, 105, 0.14); padding: 10px;
+  display: flex; align-items: center; justify-content: center; flex: 0 0 auto;
+}
+.client-logo-box img { width: 100%; height: 100%; object-fit: contain; display: block; }
+@media (max-width: 640px) {
+  .client-card { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+}
+  </style>
+  <script>
+(function () {
+  const root = document.documentElement;
+  const saved = localStorage.getItem('akaliko_site_theme');
+  if (saved === 'starlight') root.setAttribute('data-theme', 'starlight');
+  window.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    const syncLabel = () => {
+      const dark = root.getAttribute('data-theme') === 'starlight';
+      btn.textContent = dark ? '☀ Zion & Patagonia' : '✦ Starlight OLED';
+      btn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+    };
+    syncLabel();
+    btn.addEventListener('click', () => {
+      const next = root.getAttribute('data-theme') === 'starlight' ? 'zion' : 'starlight';
+      if (next === 'starlight') root.setAttribute('data-theme', 'starlight');
+      else root.removeAttribute('data-theme');
+      localStorage.setItem('akaliko_site_theme', next);
+      syncLabel();
+    });
+  });
+})();
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-group">
+        <img src="assets/akaliko-mark-gold.png" alt="" class="brand-mark" width="30" height="30">
+        <span class="brand-text">
+          <span class="brand-title">Akaliko Designs</span>
+          <span class="brand-sub">Engineering for Timelessness</span>
+        </span>
+      </a>
+      <nav class="primary-nav" aria-label="Main site navigation">
+        <a href="studio.html" class="active">Studio Home</a>
+        <a href="hardware.html">Hardware</a>
+        <a href="about.html">About</a>
+        <a href="industries.html">Industries</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+        <span class="nav-divider" aria-hidden="true"></span>
+        <a href="apps.html">App Development</a>
+        <button type="button" id="themeToggle" class="theme-toggle">✦ Starlight OLED</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-centered hero-vista">
+      <div class="container">
+        <div class="eyebrow">Akaliko Designs</div>
+        <h1>Engineering for Timelessness.</h1>
+        <p class="lead">
+          In Pāli, <em>Akāliko</em> means timeless and immediate—craft that endures beyond fleeting trends. Akaliko Designs brings together two dedicated practices: physical product engineering across AI-enabled hardware and consumer electronics, and quiet software crafted for contemplative practice.
+        </p>
+        <div class="cta-row">
+          <a href="hardware.html" class="btn">Akaliko Hardware Development →</a>
+          <a href="apps.html" class="btn secondary">Akaliko App Development →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker">Two Dedicated Practices</span>
+          <h2>Choose a Division</h2>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <div>
+              <span class="tier-badge">Physical Systems · 1 to &gt;1,000 Units</span>
+              <h3 style="margin-top:var(--s2)">Akaliko Hardware Development</h3>
+              <div class="status-banner" role="status" style="margin-top:var(--s2)">
+                <span class="status-dot" aria-hidden="true"></span>
+                <div><strong>Status Note:</strong> Not currently taking on new projects.</div>
+              </div>
+              <p>
+                Mechanical and product engineering led by Norvin B. Cuentas, with 14 years of industry experience and US &amp; Asia manufacturing across AI-enabled hardware, consumer electronics, industrial automation, and industrial electronics.
+              </p>
+              <ul class="clean-list">
+                <li>Plastic injection molding, sheet metal, DFM, DFA, DFR, DFRel &amp; FEA</li>
+                <li>Prototypes (1–50), low volume (50–1,000), and mass production (&gt;1,000)</li>
+              </ul>
+            </div>
+            <div>
+              <div class="cta-row" style="margin-bottom:var(--s2)">
+                <a href="hardware.html" class="btn">Enter Hardware Site →</a>
+              </div>
+              <div class="card-links">
+                <a href="about.html">About</a>
+                <a href="industries.html">Industries Served</a>
+                <a href="services.html">Product Development Services</a>
+                <a href="contact.html">Contact</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div>
+              <span class="tier-badge">Quiet Software · Offline-First</span>
+              <h3 style="margin-top:var(--s2)">Akaliko App Development</h3>
+              <div class="status-banner cool" role="status" style="margin-top:var(--s2)">
+                <span class="status-dot" aria-hidden="true"></span>
+                <div><strong>Development Note:</strong> First flagship project (<em>Akaliko Meditation Timer™</em>) is under development; additional quiet tools in exploration.</div>
+              </div>
+              <p>
+                Focused, private, offline-first software built with the same restraint and human-factors rigor as our hardware work—zero ads, zero streaks, and zero telemetry.
+              </p>
+              <ul class="clean-list">
+                <li>Shared software ethos: offline-first, strictly private, and free of engagement traps</li>
+                <li>Home to <em>Akaliko Meditation Timer™</em> and future contemplative &amp; everyday tools</li>
+              </ul>
+            </div>
+            <div>
+              <div class="cta-row" style="margin-bottom:var(--s2)">
+                <a href="apps.html" class="btn">Enter App Development →</a>
+              </div>
+              <div class="card-links">
+                <a href="apps.html#ethos">Software Ethos</a>
+                <a href="apps.html#projects">App Projects</a>
+                <a href="meditation-timer.html">Akaliko Meditation Timer™</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker">Founder &amp; Principal</span>
+          <h2>About the Practice Lead</h2>
+        </div>
+        <div class="studio-bio-panel">
+          <div>
+            <h3 style="font-family:var(--font-serif);font-size:1.65rem;font-weight:400;margin-bottom:4px">Norvin B. Cuentas</h3>
+            <div class="founder-role">Sole Proprietor | Mechanical Engineering Consultant &amp; App Creator</div>
+            <div class="founder-affil">{Ex-Vimaan | Ex-Intel Startup Initiatives Team | Ex-Microsoft Surface Pro Team}</div>
+            <p style="color:var(--muted);margin:0">
+              An inquisitive Mechanical Engineer with 14 years of industry experience and US and Asia manufacturing expertise in CAD and TUM Lean Six Sigma Yellow Belt methodologies—skilled with technologies found in high-volume consumer electronics, industrial automation, and industrial electronics, and associated with products that have successfully gone to market. Alongside hardware engineering, Norvin writes reflective essays within the container of meditation practice on Substack under the pen name <em>Anorthernfriend</em> and develops the offline-first <em>Akaliko Meditation Timer™</em>.
+            </p>
+            <div class="bio-links">
+              <a href="https://www.linkedin.com/in/norvincuentas" target="_blank" rel="noopener" class="bio-link-btn">LinkedIn Profile ↗</a>
+              <a href="https://www.akalikodesigns.com/portfolio" target="_blank" rel="noopener" class="bio-link-btn">Hardware Portfolio ↗</a>
+              <a href="https://anorthernfriend.substack.com/" target="_blank" rel="noopener" class="bio-link-btn">Substack · Anorthernfriend ↗</a>
+            </div>
+          </div>
+          <div class="founder-portrait-wrap">
+            <img src="assets/norvin-portrait-circle.png" alt="Portrait of Norvin B. Cuentas" class="founder-portrait-circle">
+            <div class="portrait-placeholder" style="display:none">
+              <div><strong>Norvin B. Cuentas</strong><br><code>assets/norvin-cuentas.jpg</code></div>
+            </div>
+            <a href="about.html" class="btn small secondary">Full Bio →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" style="border-bottom:none">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker">Shared Studio Ground</span>
+          <h2>Values That Carry Across Hardware &amp; Software</h2>
+        </div>
+        <div class="grid-4">
+          <article class="card subtle">
+            <h3>Truthfulness &amp; Integrity</h3>
+            <p>Honest technical trade-offs, clear boundaries, and stewardship of user privacy and client trust.</p>
+          </article>
+          <article class="card subtle">
+            <h3>Reliability</h3>
+            <p>Dependable physical mechanisms and offline-first software built to hold up in real daily and monastic routines.</p>
+          </article>
+          <article class="card subtle">
+            <h3>Wellbeing</h3>
+            <p>Ergonomic, low-glare, and non-analytical design that supports calm attention rather than competing for it.</p>
+          </article>
+          <article class="card subtle">
+            <h3>Right Respect</h3>
+            <p>Unobtrusive craft free from dark patterns, engagement hooks, or unnecessary noise.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <img src="assets/akaliko-lockup.png" alt="Akaliko Designs — Engineering for Timelessness" class="footer-lockup">
+        <strong>Akaliko Designs</strong> — Engineering for Timelessness<br>
+        <span>Norvin B. Cuentas · Truthfulness · Reliability · Wellbeing · Integrity · Right Respect</span>
+      </div>
+      <div class="footer-links">
+        <a href="studio.html">Studio Home</a>
+        <a href="hardware.html">Hardware</a>
+        <a href="about.html">About</a>
+        <a href="apps.html">App Development</a>
+        <a href="https://www.linkedin.com/in/norvincuentas" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.akalikodesigns.com/portfolio" target="_blank" rel="noopener">Portfolio</a>
+        <a href="https://anorthernfriend.substack.com/" target="_blank" rel="noopener">Substack (Anorthernfriend)</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

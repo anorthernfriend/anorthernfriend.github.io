@@ -1,0 +1,371 @@
+/* ==========================================================================
+   Akaliko Designs — Architectural Harmony Layer
+   Golden Ratio (phi = 1.618) · Visual Hierarchy · Symmetry · Repeating Motifs
+   ========================================================================== */
+
+:root {
+  /* Fibonacci spatial progression (exact phi convergence) */
+  --phi: 1.6180339887;
+  --s0: 5px;
+  --s1: 8px;
+  --s2: 13px;
+  --s3: 21px;
+  --s4: 34px;
+  --s5: 55px;
+  --s6: 89px;
+
+  /* Golden typographic scale (sqrt(phi) = 1.272, phi = 1.618, phi^2 = 2.618) */
+  --t-xs: 0.75rem;
+  --t-sm: 0.875rem;
+  --t-base: 1rem;
+  --t-lead: clamp(1.04rem, 1.35vw, 1.16rem);
+  --t-h3: 1.272rem;
+  --t-h2: clamp(1.618rem, 2.618vw, 2.28rem);
+  --t-h1: clamp(2.25rem, 4.236vw, 3.38rem);
+
+  /* Fibonacci corner radii & subtle motion */
+  --r-sm: 8px;
+  --r-md: 13px;
+  --r-lg: 21px;
+  --ease-calm: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Repeating architectural pattern ink */
+  --pattern-dot: rgba(62, 74, 105, 0.065);
+  --band-alt: color-mix(in srgb, var(--surface-alt) 48%, var(--bg));
+  --card-sheen: rgba(255, 255, 255, 0.32);
+}
+
+html[data-theme="starlight"] {
+  --pattern-dot: rgba(242, 242, 242, 0.045);
+  --band-alt: #050506;
+  --card-sheen: rgba(255, 255, 255, 0.05);
+}
+
+/* 1. Container & Vertical Golden Proportions ------------------------------- */
+.container {
+  max-width: 1100px;
+  padding: 0 var(--s3);
+}
+
+body {
+  font-size: var(--t-base);
+  line-height: 1.618;
+}
+
+/* Header precision & symmetry */
+.header-inner {
+  padding: var(--s2) 0;
+  min-height: 68px;
+}
+
+.brand-mark {
+  width: 32px;
+  height: 32px;
+  transition: transform 0.34s var(--ease-calm);
+}
+.brand-group:hover .brand-mark {
+  transform: scale(1.05);
+}
+
+/* 2. Visual Hierarchy — Golden Typographic Ladder -------------------------- */
+.hero {
+  padding: var(--s6) 0 var(--s5); /* 89px : 55px = exact phi (1.618) */
+}
+
+.hero-centered {
+  padding: calc(var(--s6) + var(--s2)) 0 var(--s6);
+}
+
+.eyebrow {
+  font-size: var(--t-xs);
+  letter-spacing: 0.2em;
+  gap: var(--s2);
+  margin-bottom: var(--s2);
+}
+
+/* Repeating Motif 1: 21px -> 34px -> 55px Fibonacci hairline cadence */
+.eyebrow::before {
+  width: var(--s3); /* 21px */
+  height: 1px;
+}
+
+.hero-centered .eyebrow::after {
+  content: "";
+  width: var(--s3);
+  height: 1px;
+  background: currentColor;
+  opacity: 0.72;
+}
+
+h1 {
+  font-size: var(--t-h1);
+  line-height: 1.12;
+  letter-spacing: -0.005em;
+  margin: 0 0 var(--s3);
+  max-width: 21ch;
+  text-wrap: balance;
+}
+
+.hero-centered h1 {
+  max-width: 22ch;
+}
+
+.lead {
+  font-size: var(--t-lead);
+  line-height: 1.68;
+  max-width: 58ch; /* Classical golden reading measure */
+  margin: 0 0 var(--s4);
+}
+
+h2 {
+  font-size: var(--t-h2);
+  line-height: 1.18;
+  letter-spacing: -0.004em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+h3 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: var(--t-h3);
+  line-height: 1.28;
+  letter-spacing: 0.005em;
+  color: var(--ink);
+}
+
+/* Section header with repeating 34px warm architectural underline */
+.section-header {
+  gap: var(--s1);
+  margin-bottom: var(--s4);
+  position: relative;
+}
+
+.section-header::after {
+  content: "";
+  display: block;
+  width: var(--s4); /* 34px = phi * 21px */
+  height: 1px;
+  margin-top: var(--s1);
+  background: linear-gradient(90deg, var(--accent-warm-deep), transparent);
+  opacity: 0.78;
+}
+
+.section-kicker {
+  font-size: var(--t-xs);
+  letter-spacing: 0.2em;
+}
+
+/* 3. Repeating Architectural Patterns — Band Rhythm & Seam Diamonds -------- */
+section.band {
+  position: relative;
+  padding: var(--s6) 0 var(--s5); /* 89px : 55px golden rhythm */
+  border-bottom: 1px solid var(--line);
+}
+
+/* Subtle alternating ground + quiet 21px architectural dot matrix */
+main > section.band:nth-of-type(even) {
+  background-color: var(--band-alt);
+  background-image: radial-gradient(var(--pattern-dot) 1px, transparent 1px);
+  background-size: var(--s3) var(--s3); /* 21px x 21px Fibonacci grid */
+}
+
+/* Centered symmetric diamond ornament along horizontal band dividers */
+main > section.band:not(:last-of-type)::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  width: 7px;
+  height: 7px;
+  background: var(--bg);
+  border: 1px solid var(--accent-warm-deep);
+  transform: translateX(-50%) rotate(45deg);
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+/* 4. Symmetry & Golden Proportions in Cards & Grids ------------------------ */
+.grid-2,
+.grid-3,
+.grid-4 {
+  gap: var(--s3); /* 21px consistent architectural gutter */
+  align-items: stretch;
+}
+
+.card,
+.client-card,
+.founder-card,
+.cred-card,
+.pf-card {
+  border-radius: var(--r-lg); /* 21px unified outer radius */
+  padding: var(--s4);         /* 34px Fibonacci interior breathing */
+  border: 1px solid var(--line);
+  box-shadow:
+    inset 0 1px 0 var(--card-sheen),
+    var(--shadow);
+  transition:
+    transform 0.34s var(--ease-calm),
+    border-color 0.26s ease,
+    box-shadow 0.34s var(--ease-calm);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--s3);
+}
+
+.card:hover,
+.client-card:hover,
+.pf-card:hover {
+  border-color: color-mix(in srgb, var(--accent-warm-deep) 52%, var(--line));
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+/* Subtle architectural top hairline accent inside primary cards */
+.card:not(.subtle),
+.founder-card,
+.pf-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.card:not(.subtle)::before,
+.founder-card::before,
+.pf-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: var(--s4);
+  right: var(--s4);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-warm), transparent);
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+/* Strict golden 61.8% / 38.2% splits on asymmetric layouts */
+.founder-card,
+.pf-card,
+.golden-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.618fr) minmax(0, 1fr);
+  gap: var(--s4);
+}
+
+.founder-card {
+  align-items: center;
+}
+
+.pf-card {
+  align-items: start;
+}
+
+/* Symmetric inner surfaces (logo boxes, quotes, status banners) */
+.status-banner {
+  border-radius: var(--r-md); /* 13px nested Fibonacci radius */
+  padding: var(--s2) var(--s3);
+  margin-bottom: var(--s3);
+}
+
+.client-logo-box,
+.pf-img-btn {
+  border-radius: var(--r-md); /* 13px concentric inner radius */
+}
+
+.client-quote,
+.pf-highlight {
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  padding: var(--s2) var(--s3);
+}
+
+.client-stack,
+.pf-list {
+  gap: var(--s4); /* 34px generous vertical separation */
+}
+
+/* Unified tactile button cadence */
+.btn {
+  min-height: 44px;
+  padding: 11px var(--s3);
+  border-radius: 999px;
+  transition: transform 0.24s var(--ease-calm), opacity 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.btn.small {
+  min-height: 36px;
+  padding: 7px 16px;
+}
+
+.bio-link-btn {
+  border-radius: 999px;
+  transition: transform 0.22s var(--ease-calm), border-color 0.2s ease, background-color 0.2s ease;
+}
+.bio-link-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Consistent pill badges */
+.tier-badge {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 999px;
+}
+
+/* Footer symmetry & quiet architectural separation */
+footer.site-footer {
+  padding: var(--s5) 0;
+  border-top: 1px solid var(--line);
+}
+
+.footer-inner {
+  gap: var(--s3);
+  align-items: center;
+}
+
+.footer-links {
+  gap: var(--s2) var(--s3);
+}
+
+/* Responsive symmetry preservation */
+@media (max-width: 860px) {
+  .hero {
+    padding: var(--s5) 0 var(--s4);
+  }
+  section.band {
+    padding: var(--s5) 0 var(--s4);
+  }
+  .founder-card,
+  .pf-card,
+  .golden-split {
+    grid-template-columns: 1fr;
+  }
+  .card,
+  .client-card,
+  .founder-card,
+  .cred-card,
+  .pf-card {
+    padding: var(--s3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .btn,
+  .bio-link-btn,
+  .brand-mark {
+    transition: none;
+  }
+  .card:hover,
+  .btn:hover,
+  .bio-link-btn:hover {
+    transform: none;
+  }
+}

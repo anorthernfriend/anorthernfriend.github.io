@@ -134,11 +134,22 @@ body {
 }
 
 .kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
   font-size: 0.70rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--warm);
   margin-bottom: var(--s2);
+}
+.kicker::before,
+.kicker::after {
+  content: "";
+  width: var(--s3);
+  height: 1px;
+  background: currentColor;
+  opacity: 0.55;
 }
 .panel.app .kicker { color: var(--cool); }
 
@@ -148,6 +159,7 @@ body {
   font-weight: 400;
   font-size: clamp(2rem, 3.6vw, 2.95rem);
   line-height: 1.12;
+  text-wrap: balance;
   color: var(--fg);
   text-shadow: 0 2px 18px rgba(0, 0, 0, 0.35);
 }

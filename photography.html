@@ -25,11 +25,11 @@
   --font-serif: 'EB Garamond', Georgia, serif;
   --font-sans: 'Outfit', system-ui, -apple-system, sans-serif;
   --s1: 8px;
-  --s2: 14px;
-  --s3: 24px;
-  --s4: 40px;
-  --s5: 68px;
-  --s6: 108px;
+  --s2: 13px;
+  --s3: 21px;
+  --s4: 34px;
+  --s5: 55px;
+  --s6: 89px;
 }
 
 html[data-gallery-wall="daylight"] {
@@ -113,8 +113,22 @@ body {
 
 /* Exhibition entrance */
 .entrance {
+  position: relative;
   padding: var(--s6) 0 var(--s5);
   border-bottom: 1px solid var(--line);
+}
+.entrance::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  width: 7px;
+  height: 7px;
+  background: var(--bg);
+  border: 1px solid var(--accent);
+  transform: translateX(-50%) rotate(45deg);
+  opacity: 0.65;
+  pointer-events: none;
 }
 .kicker {
   display: inline-flex;
@@ -181,6 +195,15 @@ body {
   font-weight: 400;
   font-size: 1.42rem;
   color: var(--fg);
+}
+.study-item h2::after {
+  content: "";
+  display: block;
+  width: var(--s3);
+  height: 1px;
+  margin-top: var(--s1);
+  background: linear-gradient(90deg, var(--accent), transparent);
+  opacity: 0.6;
 }
 .study-item p {
   margin: 0;

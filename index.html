@@ -130,9 +130,30 @@ body {
 .eyebrow::before,
 .eyebrow::after {
   content: "";
-  width: 24px;
+  width: var(--s3);
   height: 1px;
-  background: rgba(227, 188, 158, 0.52);
+  background: rgba(227, 188, 158, 0.56);
+}
+
+.axis-ornament {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  margin: 0 auto var(--s4);
+  opacity: 0.72;
+}
+.axis-ornament::before,
+.axis-ornament::after {
+  content: "";
+  width: var(--s4);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(227, 188, 158, 0.72), transparent);
+}
+.axis-diamond {
+  width: 6px;
+  height: 6px;
+  border: 1px solid var(--warm);
+  transform: rotate(45deg);
 }
 
 h1 {
@@ -147,11 +168,11 @@ h1 {
 }
 
 .tagline {
-  margin: 0 auto var(--s5);
+  margin: 0 auto var(--s3);
   max-width: 44ch;
   font-size: clamp(1rem, 1.9vw, 1.15rem);
   font-weight: 300;
-  line-height: 1.68;
+  line-height: 1.618;
   color: var(--muted);
   text-shadow: 0 1px 14px rgba(0, 0, 0, 0.34);
 }
@@ -263,6 +284,7 @@ h1 {
     <p class="tagline">
       <em>Engineering for Timelessness</em> — physical product craft and quiet software built to endure.
     </p>
+    <div class="axis-ornament" aria-hidden="true"><span class="axis-diamond"></span></div>
     <a href="gateway.html" class="enter-btn">
       <span>Enter</span>
       <span class="enter-arrow" aria-hidden="true">→</span>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="assets/akaliko-mark-gold.png">
+  <title>Akaliko Designs — Two Practices, One Ethos</title>
+  <meta name="description" content="Choose a practice at Akaliko Designs: Hardware Development (physical systems) or App Development (Akaliko Meditation Timer).">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+:root {
+  --s1: 8px;
+  --s2: 13px;
+  --s3: 21px;
+  --s4: 34px;
+  --s5: 55px;
+  --fg: #F6F2EB;
+  --muted: rgba(246, 242, 235, 0.80);
+  --dim: rgba(246, 242, 235, 0.54);
+  --warm: #E3BC9E;
+  --cool: #9EC0C8;
+  --font-serif: 'EB Garamond', Georgia, serif;
+  --font-sans: 'Outfit', system-ui, -apple-system, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: #000000; color: var(--fg); }
+
+body {
+  min-height: 100svh;
+  font-family: var(--font-sans);
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Split Diptych Grid */
+.diptych {
+  position: relative;
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100svh - 54px);
+}
+
+.panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--s5) var(--s4);
+  text-decoration: none;
+  color: var(--fg);
+  overflow: hidden;
+  transition: filter 0.35s ease;
+}
+
+/* Left Panel: Physical World — Evergreen & Islands Sunset Vista */
+.panel.hw {
+  background:
+    linear-gradient(180deg, rgba(22, 28, 38, 0.52) 0%, rgba(19, 25, 34, 0.68) 60%, rgba(14, 18, 26, 0.86) 100%),
+    url("assets/hero-evergreen-vista.jpg") center 46% / cover no-repeat;
+  border-right: 1px solid rgba(246, 242, 235, 0.14);
+}
+.panel.hw::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(227, 188, 158, 0.0);
+  transition: background 0.35s ease;
+  pointer-events: none;
+}
+.panel.hw:hover::before,
+.panel.hw:focus-visible::before {
+  background: rgba(227, 188, 158, 0.08);
+}
+
+/* Right Panel: Inner World — True Starlight OLED #000000 + Quiet Sumi-e Ensō */
+.panel.app {
+  background: #000000;
+}
+.panel.app::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 48%, rgba(221, 215, 202, 0.06) 0%, transparent 62%);
+  opacity: 0.7;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.panel.app:hover::before,
+.panel.app:focus-visible::before {
+  opacity: 1;
+}
+
+.panel:focus-visible { outline: 2px solid var(--warm); outline-offset: -4px; }
+
+.enso-bg {
+  position: absolute;
+  width: min(76%, 360px);
+  aspect-ratio: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -52%);
+  pointer-events: none;
+  opacity: 0.24;
+  transition: opacity 0.45s ease, transform 0.6s ease;
+}
+.panel.app:hover .enso-bg,
+.panel.app:focus-visible .enso-bg {
+  opacity: 0.40;
+  transform: translate(-50%, -52%) scale(1.02);
+}
+
+.panel-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: quiet-settle 0.8s ease both;
+}
+@keyframes quiet-settle {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .panel-inner { animation: none; }
+}
+
+.kicker {
+  font-size: 0.70rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--warm);
+  margin-bottom: var(--s2);
+}
+.panel.app .kicker { color: var(--cool); }
+
+.panel h2 {
+  margin: 0 0 var(--s2);
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2rem, 3.6vw, 2.95rem);
+  line-height: 1.12;
+  color: var(--fg);
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.35);
+}
+
+.panel p {
+  margin: 0 0 var(--s4);
+  font-size: 0.96rem;
+  font-weight: 300;
+  line-height: 1.62;
+  color: var(--muted);
+}
+
+.door-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 24px;
+  border-radius: 999px;
+  border: 1px solid rgba(246, 242, 235, 0.42);
+  background: rgba(16, 21, 30, 0.34);
+  color: var(--fg);
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
+}
+.panel.app .door-cta {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(246, 242, 235, 0.28);
+}
+.panel:hover .door-cta,
+.panel:focus-visible .door-cta {
+  background: #F6F2EB;
+  border-color: #F6F2EB;
+  color: #14181F;
+  transform: translateY(-1px);
+}
+.door-cta .arrow { transition: transform 0.2s ease; }
+.panel:hover .door-cta .arrow { transform: translateX(4px); }
+
+.status {
+  margin-top: var(--s3);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  color: var(--dim);
+}
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--warm);
+}
+.panel.app .dot { background: var(--cool); }
+
+/* Centered Akaliko Gold "A" Emblem uniting both worlds on the seam */
+.center-crest {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: rgba(10, 13, 18, 0.86);
+  border: 1px solid rgba(227, 188, 158, 0.36);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+  transition: transform 0.25s ease, border-color 0.25s ease;
+  text-decoration: none;
+}
+.center-crest:hover {
+  transform: translate(-50%, -50%) scale(1.06);
+  border-color: rgba(227, 188, 158, 0.78);
+}
+.center-crest img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Quiet bottom bar */
+.foot-bar {
+  background: #07090D;
+  border-top: 1px solid rgba(246, 242, 235, 0.12);
+  padding: 15px var(--s3) calc(15px + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2);
+  font-size: 0.78rem;
+  color: var(--dim);
+}
+.foot-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s3);
+}
+.foot-bar a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.foot-bar a:hover { color: var(--fg); }
+
+@media (max-width: 820px) {
+  .diptych {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+  .panel { padding: var(--s5) var(--s3); min-height: 46svh; }
+  .panel.hw { border-right: none; border-bottom: 1px solid rgba(246, 242, 235, 0.16); }
+  .center-crest { width: 58px; height: 58px; }
+  .center-crest img { width: 28px; height: 28px; }
+  .foot-bar { justify-content: center; text-align: center; }
+  .foot-links { justify-content: center; gap: var(--s2); }
+}
+  </style>
+</head>
+<body>
+  <main class="diptych" aria-label="Choose a practice at Akaliko Designs">
+    <a href="hardware.html" class="panel hw">
+      <div class="panel-inner">
+        <span class="kicker">Physical World</span>
+        <h2>Akaliko Hardware Development</h2>
+        <p>Mechanical engineering consultancy across AI-enabled hardware, consumer electronics, and industrial systems.</p>
+        <span class="door-cta"><span>Enter Hardware</span><span class="arrow" aria-hidden="true">→</span></span>
+        <span class="status"><span class="dot" aria-hidden="true"></span>Not currently taking new projects</span>
+      </div>
+    </a>
+
+    <a href="welcome.html" class="center-crest" title="Return to Akaliko Designs Welcome">
+      <img src="assets/akaliko-mark-gold.png" alt="Akaliko Designs">
+    </a>
+
+    <a href="meditation-timer.html" class="panel app">
+      <canvas id="diptychEnso" class="enso-bg" width="640" height="640" aria-hidden="true"></canvas>
+      <div class="panel-inner">
+        <span class="kicker">Inner World · Offline Software</span>
+        <h2>Akaliko App Development</h2>
+        <p><em>Akaliko Meditation Timer™</em> — a quiet, private, offline tool for serious practitioners and monastics.</p>
+        <span class="door-cta"><span>Enter App</span><span class="arrow" aria-hidden="true">→</span></span>
+        <span class="status"><span class="dot" aria-hidden="true"></span>Under development</span>
+      </div>
+    </a>
+  </main>
+
+  <footer class="foot-bar">
+    <a href="welcome.html">← Welcome</a>
+    <div class="foot-links">
+      <a href="index.html">Studio Overview</a>
+      <a href="about.html">About Norvin</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+      <a href="https://anorthernfriend.substack.com/" target="_blank" rel="noopener">Substack ↗</a>
+    </div>
+  </footer>
+
+  <script>
+// Quiet sumi-e Ensō painted once on the OLED right panel (same classic velvety calligraphy aesthetic as v2.3)
+(function(){
+  const cv = document.getElementById('diptychEnso');
+  if(!cv) return;
+  const g = cv.getContext('2d');
+  const DPR = Math.min(window.devicePixelRatio || 1, 2);
+  const SIZE = 320;
+  cv.width = SIZE * DPR; cv.height = SIZE * DPR;
+  g.scale(DPR, DPR);
+
+  let a = 314159;
+  const R = () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+
+  const startAngle = -Math.PI * 0.56, totalArc = Math.PI * 2 - 0.28;
+  const h1 = (R() - 0.5) * 4.6, p1 = R() * 6.28, h2 = (R() - 0.5) * 3.0, p2 = R() * 6.28;
+  const makeEdge = () => Array.from({ length: 6 }, (_, i) => ({ f: [11, 23, 41, 67, 103, 151][i], p: R() * 6.28, a: [0.9, 0.7, 0.5, 0.4, 0.28, 0.18][i] }));
+  const eOut = makeEdge(), eIn = makeEdge();
+  const rough = (hs, t) => hs.reduce((acc, h) => acc + Math.sin(t * h.f + h.p) * h.a, 0);
+  const pt = (t, off) => {
+    const ang = startAngle + t * totalArc;
+    const r = 128 + Math.sin(t * 6.28318 + p1) * h1 + Math.sin(t * 12.56637 + p2) * h2 + off;
+    return [160 + Math.cos(ang) * r, 160 + Math.sin(ang) * r];
+  };
+  const halfW = t => {
+    const en = t < 0.05 ? (0.55 + 0.45 * Math.sin((t / 0.05) * 1.5708)) : 1;
+    const tr = 1.0 + 0.14 * Math.sin(t * 6.28318 + 1.1);
+    const tl = t > 0.84 ? Math.max(0.38, 1 - Math.pow((t - 0.84) / 0.16, 1.5) * 0.62) : 1;
+    return 12.2 * en * tr * tl;
+  };
+  const ribbon = (extra, rs) => {
+    const out = [], inn = [];
+    for(let i = 0; i <= 240; i++){
+      const t = i / 240, hw = halfW(t) + extra;
+      out.push(pt(t, hw + rough(eOut, t) * rs));
+      inn.push(pt(t, -hw + rough(eIn, t) * rs));
+    }
+    g.beginPath(); g.moveTo(out[0][0], out[0][1]);
+    for(let i = 1; i < out.length; i++) g.lineTo(out[i][0], out[i][1]);
+    for(let i = inn.length - 1; i >= 0; i--) g.lineTo(inn[i][0], inn[i][1]);
+    g.closePath();
+  };
+  const rgb = '221,215,202';
+  ribbon(2.0, 1.3); g.fillStyle = `rgba(${rgb},0.16)`; g.fill();
+  ribbon(0, 1.0); g.fillStyle = `rgba(${rgb},0.92)`; g.fill();
+  const [ex, ey] = pt(0.012, -2);
+  g.beginPath(); g.ellipse(ex, ey, 11, 8.8, startAngle + 0.45, 0, 6.28318); g.fill();
+  // Subtle outer-rim kasure near tail
+  g.globalCompositeOperation = 'destination-out';
+  g.lineCap = 'round';
+  for(let k = 0; k < 5; k++){
+    const u = 0.52 + k * 0.09, ts = 0.74 + k * 0.03;
+    g.beginPath();
+    for(let i = 0; i <= 40; i++){
+      const t = ts + (i / 40) * (1 - ts);
+      const [x, y] = pt(t, u * halfW(t));
+      if(i === 0) g.moveTo(x, y); else g.lineTo(x, y);
+    }
+    g.lineWidth = 0.9 + k * 0.15;
+    g.strokeStyle = 'rgba(0,0,0,0.72)';
+    g.stroke();
+  }
+})();
+  </script>
+</body>
+</html>

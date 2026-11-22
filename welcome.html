@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="assets/akaliko-mark-gold.png">
+  <title>Akaliko Designs — Engineering for Timelessness</title>
+  <meta name="description" content="Akaliko Designs by Norvin B. Cuentas — Engineering for Timelessness across physical hardware development and quiet contemplative software.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+:root {
+  --phi: 1.618;
+  --s1: 8px;
+  --s2: 13px;
+  --s3: 21px;
+  --s4: 34px;
+  --s5: 55px;
+  --fg: #F6F2EB;
+  --muted: rgba(246, 242, 235, 0.82);
+  --dim: rgba(246, 242, 235, 0.56);
+  --warm: #E3BC9E;
+  --scrim-top: rgba(13, 18, 27, 0.36);
+  --scrim-mid: rgba(13, 18, 27, 0.50);
+  --scrim-bot: rgba(9, 12, 18, 0.82);
+  --font-serif: 'EB Garamond', Georgia, serif;
+  --font-sans: 'Outfit', system-ui, -apple-system, sans-serif;
+}
+
+html[data-theme="starlight"] {
+  --scrim-top: rgba(0, 0, 0, 0.62);
+  --scrim-mid: rgba(0, 0, 0, 0.74);
+  --scrim-bot: rgba(0, 0, 0, 0.94);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  min-height: 100svh;
+  font-family: var(--font-sans);
+  color: var(--fg);
+  background:
+    linear-gradient(180deg, var(--scrim-top) 0%, var(--scrim-mid) 54%, var(--scrim-bot) 100%),
+    url("assets/hero-evergreen-vista.jpg") center 46% / cover no-repeat fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--s3) var(--s3) calc(var(--s3) + env(safe-area-inset-bottom, 0px));
+  -webkit-font-smoothing: antialiased;
+}
+
+.top-bar {
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2);
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.mode-btn {
+  background: rgba(14, 19, 28, 0.34);
+  border: 1px solid rgba(246, 242, 235, 0.22);
+  color: var(--muted);
+  border-radius: 999px;
+  padding: 6px 13px;
+  font: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-transform: none;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+.mode-btn:hover {
+  border-color: rgba(227, 188, 158, 0.65);
+  color: var(--fg);
+  background: rgba(20, 26, 38, 0.62);
+}
+
+/* Golden-section optical centerpiece */
+.threshold {
+  width: 100%;
+  max-width: 660px;
+  margin: 0 auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--s4) 0;
+  animation: quiet-settle 0.9s ease both;
+}
+.threshold::before { content: ""; flex: 1 1 0; }
+.threshold::after { content: ""; flex: var(--phi) 1 0; }
+
+@keyframes quiet-settle {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .threshold { animation: none; }
+}
+
+.crest {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  margin-bottom: var(--s3);
+  filter: drop-shadow(0 8px 22px rgba(0, 0, 0, 0.45));
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--warm);
+  margin-bottom: var(--s2);
+}
+.eyebrow::before,
+.eyebrow::after {
+  content: "";
+  width: 24px;
+  height: 1px;
+  background: rgba(227, 188, 158, 0.52);
+}
+
+h1 {
+  margin: 0 0 var(--s2);
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.7rem, 6.8vw, 4.5rem);
+  line-height: 1.06;
+  letter-spacing: 0.015em;
+  color: var(--fg);
+  text-shadow: 0 4px 28px rgba(0, 0, 0, 0.38);
+}
+
+.tagline {
+  margin: 0 auto var(--s5);
+  max-width: 44ch;
+  font-size: clamp(1rem, 1.9vw, 1.15rem);
+  font-weight: 300;
+  line-height: 1.68;
+  color: var(--muted);
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.34);
+}
+.tagline em {
+  font-family: var(--font-serif);
+  font-size: 1.1em;
+  color: var(--fg);
+}
+
+.enter-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-width: 176px;
+  min-height: 55px;
+  padding: 13px 34px;
+  border-radius: 999px;
+  background: rgba(246, 242, 235, 0.14);
+  border: 1px solid rgba(246, 242, 235, 0.56);
+  color: var(--fg);
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+}
+.enter-btn:hover,
+.enter-btn:focus-visible {
+  background: rgba(246, 242, 235, 0.94);
+  border-color: #F6F2EB;
+  color: #161B24;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.35);
+  outline: none;
+}
+.enter-arrow { transition: transform 0.2s ease; }
+.enter-btn:hover .enter-arrow { transform: translateX(4px); }
+
+.foot-whisper {
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding-top: var(--s3);
+  border-top: 1px solid rgba(246, 242, 235, 0.12);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2);
+  font-size: 0.78rem;
+  color: var(--dim);
+}
+.whisper-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s3);
+}
+.whisper-links a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.whisper-links a:hover { color: var(--fg); }
+
+@media (max-width: 640px) {
+  body { background-attachment: scroll; padding: var(--s2); }
+  .foot-whisper { justify-content: center; text-align: center; }
+  .whisper-links { justify-content: center; gap: var(--s2); }
+}
+  </style>
+  <script>
+(function () {
+  const root = document.documentElement;
+  if (localStorage.getItem('akaliko_site_theme') === 'starlight') root.setAttribute('data-theme', 'starlight');
+  window.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    const sync = () => {
+      const dark = root.getAttribute('data-theme') === 'starlight';
+      btn.textContent = dark ? '☀ Twilight Vista' : '✦ Starlight OLED';
+      btn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+    };
+    sync();
+    btn.addEventListener('click', () => {
+      const next = root.getAttribute('data-theme') === 'starlight' ? 'zion' : 'starlight';
+      if (next === 'starlight') root.setAttribute('data-theme', 'starlight');
+      else root.removeAttribute('data-theme');
+      localStorage.setItem('akaliko_site_theme', next);
+      sync();
+    });
+  });
+})();
+  </script>
+</head>
+<body>
+  <div class="top-bar">
+    <span>Norvin B. Cuentas</span>
+    <button type="button" id="themeToggle" class="mode-btn">✦ Starlight OLED</button>
+  </div>
+
+  <main class="threshold" aria-label="Akaliko Designs welcome">
+    <img src="assets/akaliko-mark-gold.png" alt="Akaliko Designs monogram" class="crest" width="54" height="54">
+    <div class="eyebrow">Akāliko · Timeless &amp; Immediate</div>
+    <h1>Akaliko Designs</h1>
+    <p class="tagline">
+      <em>Engineering for Timelessness</em> — physical product craft and quiet software built to endure.
+    </p>
+    <a href="gateway.html" class="enter-btn">
+      <span>Enter</span>
+      <span class="enter-arrow" aria-hidden="true">→</span>
+    </a>
+  </main>
+
+  <footer class="foot-whisper">
+    <span>© Akaliko Designs</span>
+    <div class="whisper-links">
+      <a href="gateway.html">Two Practices</a>
+      <a href="index.html">Studio Overview</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="https://anorthernfriend.substack.com/" target="_blank" rel="noopener">Substack ↗</a>
+    </div>
+  </footer>
+</body>
+</html>

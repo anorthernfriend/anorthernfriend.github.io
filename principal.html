@@ -722,9 +722,10 @@ footer.site-footer {
 .footer-lockup { display: block; width: 148px; height: auto; margin-bottom: 10px; opacity: 0.88; filter: brightness(0.28); }
 html[data-theme="starlight"] .footer-lockup { filter: brightness(1.55); opacity: 0.92; }
 .founder-portrait-circle {
-  width: 176px; height: 202px; object-fit: contain; display: block;
-  background: transparent; border: none; border-radius: 0;
-  filter: drop-shadow(0 10px 22px rgba(24, 28, 36, 0.18));
+  width: 184px; height: 196px; object-fit: cover; object-position: center top; display: block;
+  background: #ffffff; padding-top: 6px;
+  border: 1px solid var(--line); border-radius: 22px;
+  box-shadow: 0 10px 24px rgba(24, 28, 36, 0.14);
 }
 .client-card {
   display: grid; grid-template-columns: auto 1fr; gap: var(--s4); align-items: center;

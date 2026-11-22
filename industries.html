@@ -771,6 +771,40 @@ html[data-theme="starlight"] .hero-coastal {
   backdrop-filter: blur(6px);
 }
 .hero-coastal .btn.secondary:hover { background: rgba(247, 243, 236, 0.18); border-color: #F7F3EC; }
+
+.client-stack { display: flex; flex-direction: column; gap: var(--s3); }
+.client-quote {
+  margin: var(--s2) 0 0;
+  padding: var(--s2) var(--s3);
+  border-left: 3px solid var(--accent-warm-deep);
+  background: color-mix(in srgb, var(--surface-alt) 68%, transparent);
+  border-radius: 0 10px 10px 0;
+}
+.client-quote p {
+  margin: 0 0 8px;
+  font-family: var(--font-serif);
+  font-size: 1.06rem;
+  font-style: italic;
+  line-height: 1.62;
+  color: var(--ink);
+}
+.client-quote cite {
+  display: block;
+  font-style: normal;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+}
+.client-wordmark {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; gap: 3px;
+  font-family: var(--font-sans); font-weight: 600; letter-spacing: 0.14em;
+  color: #1F2630; text-transform: uppercase; line-height: 1.1;
+}
+.client-wordmark span:first-child { font-size: 1.05rem; color: #C24E2B; }
+.client-wordmark span:last-child { font-size: 0.62rem; letter-spacing: 0.22em; color: #3E4A69; }
   </style>
   <script>
 (function () {
@@ -890,21 +924,43 @@ html[data-theme="starlight"] .hero-coastal {
     <section class="band" style="border-bottom:none">
       <div class="container">
         <div class="section-header">
-          <span class="section-kicker">Client Highlight</span>
-          <h2>Selected Client Partnership</h2>
+          <span class="section-kicker">Client Portfolio &amp; Testimonial</span>
+          <h2>Selected Client Partnerships</h2>
         </div>
-        <article class="client-card">
-          <div class="client-logo-box">
-            <img src="assets/client-binit.jpg" alt="BinIt logo">
-          </div>
-          <div>
-            <span class="tier-badge">Client Portfolio · Hardware Engineering</span>
-            <h3 style="margin-top:var(--s2);margin-bottom:6px">BinIt</h3>
-            <p style="color:var(--muted);margin:0">
-              Mechanical engineering and product development support for smart waste-sorting hardware—bringing practical DFM, enclosure engineering, and manufacturing readiness from concept into real-world deployment.
-            </p>
-          </div>
-        </article>
+        <div class="client-stack">
+          <article class="client-card">
+            <div class="client-logo-box">
+              <img src="assets/client-binit.jpg" alt="BinIt Inc logo">
+            </div>
+            <div>
+              <span class="tier-badge">AI-Enabled Hardware · Bringing Data to Recycling</span>
+              <h3 style="margin-top:var(--s2);margin-bottom:6px">BinIt Inc</h3>
+              <p style="color:var(--muted);margin:0">
+                BinIt helps Material Recovery Facilities (MRFs) analyze their material streams and optimize costs through data. Akaliko Designs partnered closely with BinIt across a multi-month internal hardware R&amp;D engagement.
+              </p>
+              <blockquote class="client-quote">
+                <p>“We worked closely with Norvin from Akaliko Designs on an internal R&amp;D project that spanned multiple months. Aside from his obvious qualifications and exceptional skillset, Norvin is an enterprising, thoughtful, and creative thinker — something that makes him an asset to any engineering team looking to build hardware-enabled products.”</p>
+                <cite>— Raghav Macheri | CEO, BinIt Inc</cite>
+              </blockquote>
+            </div>
+          </article>
+
+          <article class="client-card">
+            <div class="client-logo-box">
+              <div class="client-wordmark" aria-label="Rondo Energy">
+                <span>RONDO</span>
+                <span>ENERGY</span>
+              </div>
+            </div>
+            <div>
+              <span class="tier-badge">Clean Industrial Energy · Thermal Storage Hardware</span>
+              <h3 style="margin-top:var(--s2);margin-bottom:6px">Rondo Energy</h3>
+              <p style="color:var(--muted);margin:0">
+                Rondo Energy develops zero-carbon industrial thermal energy storage systems (the Rondo Heat Battery) delivering continuous high-temperature heat and power from intermittent renewable electricity. Akaliko Designs provided mechanical engineering consultancy supporting Rondo Energy’s industrial hardware development.
+              </p>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
   </main>
